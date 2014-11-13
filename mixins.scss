@@ -11,6 +11,24 @@
   font-style: $style;
 }
 
+/* BOX SIZING
+   ========================================================================== */
+
+@mixin box-sizing($type)
+ {
+ -webkit-box-sizing:$type;
+ -moz-box-sizing:$type;
+ box-sizing:$type;
+ }
+
+ /* OPACITY
+   ========================================================================== */
+
+ @mixin opacity($opacity) {
+     opacity: $opacity;
+    filter: alpha(opacity=($opacity * 100));
+ }
+
 /* BORDERS + SHADOWS
    ========================================================================== */
 
@@ -30,20 +48,20 @@
 }
 
 @mixin border-radius-separate($topLeftRadius, $topRightRadius, $bottomLeftRadius, $bottomRightRadius) {
-    -webkit-border-top-left-radius: $topLeftRadius;
-    -webkit-border-top-right-radius: $topRightRadius;
-    -webkit-border-bottom-right-radius: $bottomRightRadius;
-    -webkit-border-bottom-left-radius: $bottomLeftRadius;
+  -webkit-border-top-left-radius: $topLeftRadius;
+  -webkit-border-top-right-radius: $topRightRadius;
+  -webkit-border-bottom-right-radius: $bottomRightRadius;
+  -webkit-border-bottom-left-radius: $bottomLeftRadius;
 
-    -moz-border-radius-topleft: $topLeftRadius;
-    -moz-border-radius-topright: $topRightRadius;
-    -moz-border-radius-bottomright: $bottomRightRadius;
-    -moz-border-radius-bottomleft: $bottomLeftRadius;
+  -moz-border-radius-topleft: $topLeftRadius;
+  -moz-border-radius-topright: $topRightRadius;
+  -moz-border-radius-bottomright: $bottomRightRadius;
+  -moz-border-radius-bottomleft: $bottomLeftRadius;
 
-    border-top-left-radius: $topLeftRadius;
-    border-top-right-radius: $topRightRadius;
-    border-bottom-right-radius: $bottomRightRadius;
-    border-bottom-left-radius: $bottomLeftRadius;
+  border-top-left-radius: $topLeftRadius;
+  border-top-right-radius: $topRightRadius;
+  border-bottom-right-radius: $bottomRightRadius;
+  border-bottom-left-radius: $bottomLeftRadius;
 }
 
 /* BLACK / WHITE OPACITY
@@ -56,38 +74,53 @@
     @return rgba(255,255,255,$opacity)
 }
 
-/* BACKGROUNDS
+/* BACKGROUND SIZE
    ========================================================================== */
 
-// LINEAR
-@mixin background-gradient($startColor, $endColor) {
-    background-color: $startColor;
-    background-image: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
-    background-image: -webkit-linear-gradient(top, $startColor, $endColor);
-    background-image:    -moz-linear-gradient(top, $startColor, $endColor);
-    background-image:     -ms-linear-gradient(top, $startColor, $endColor);
-    background-image:      -o-linear-gradient(top, $startColor, $endColor);
-    background-image:         linear-gradient(top, $startColor, $endColor);
-    filter:            progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}');
-}
-
-// RADIAL
-@mixin background-radial($startColor, $startPos, $endColor, $endPos) {
-    background: -moz-radial-gradient(center, ellipse cover, $startColor $startPos, $endColor $endPos);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop($startPos,$startColor), color-stop($endPos,$endColor));
-    background: -webkit-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
-    background: -o-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
-    background: -ms-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
-    background: radial-gradient(ellipse at center, $startColor $startPos,$endColor $endPos);
-    filter:     progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$startColor}', endColorstr='#{$endColor}',GradientType=1 );
-}
-
-// BG SIZE
 @mixin background-size($width, $height) {
      -moz-background-size: $width $height;
   -webkit-background-size: $width $height;
           background-size: $width $height;
 }
+
+/* GRADIENTS
+   ========================================================================== */
+
+@mixin gradient($startcolor, $endcolor, $orientation) {
+    background: $startcolor;
+    @if $orientation == vertical {
+    // vertical
+      background: -moz-linear-gradient(top,  $startcolor 0%, $endcolor 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$startcolor), color-stop(100%,$endcolor));
+      background: -webkit-linear-gradient(top,  $startcolor 0%,$endcolor 100%);
+      background: -o-linear-gradient(top,  $startcolor 0%,$endcolor 100%);
+      background: -ms-linear-gradient(top,  $startcolor 0%,$endcolor 100%);
+      background: linear-gradient(to bottom,  $startcolor 0%,$endcolor 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startcolor', endColorstr='$endcolor',GradientType=0 );
+    }
+    @else if $orientation == horizontal
+    {
+    // horizontal
+      background: -moz-linear-gradient(left,  $startcolor 0%, $endcolor 100%);
+      background: -webkit-gradient(linear, left top, right top, color-stop(0%,$startcolor), color-stop(100%,$endcolor));
+      background: -webkit-linear-gradient(left,  $startcolor 0%,$endcolor 100%);
+      background: -o-linear-gradient(left,  $startcolor 0%,$endcolor 100%);
+      background: -ms-linear-gradient(left,  $startcolor 0%,$endcolor 100%);
+      background: linear-gradient(to right,  $startcolor 0%,$endcolor 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startcolor', endColorstr='$endcolor',GradientType=1 );
+    }
+    @else
+    {
+    // radial
+      background: -moz-radial-gradient(center, ellipse cover,  $startcolor 0%, $endcolor 100%);
+      background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,$startcolor), color-stop(100%,$endcolor));
+      background: -webkit-radial-gradient(center, ellipse cover,  $startcolor 0%,$endcolor 100%);
+      background: -o-radial-gradient(center, ellipse cover,  $startcolor 0%,$endcolor 100%);
+      background: -ms-radial-gradient(center, ellipse cover,  $startcolor 0%,$endcolor 100%);
+      background: radial-gradient(ellipse at center,  $startcolor 0%,$endcolor 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startcolor', endColorstr='$endcolor',GradientType=1 );
+    }
+ }
 
 /* HARDWARE ACCELERATION
    ========================================================================== */
@@ -140,15 +173,15 @@
 }
 
 @keyframes scaledown {
-    0% { @include scale(1); }
-    50% { @include scale(.95); };
-    100% { @include scale(1); };
+  0% { @include scale(1); }
+  50% { @include scale(.95); };
+  100% { @include scale(1); };
 }
 
 @-webkit-keyframes scaledown {
-    0% { @include scale(1); }
-    50% { @include scale(.95); };
-    100% { @include scale(1); };
+  0% { @include scale(1); }
+  50% { @include scale(.95); };
+  100% { @include scale(1); };
 }
 
 /* SCALE UP HOVER
@@ -160,15 +193,15 @@
 }
 
 @keyframes ScaleUp {
-    0% { @include scale(1); }
-    50% { @include scale(1.1); };
-    100% { @include scale(1); };
+  0% { @include scale(1); }
+  50% { @include scale(1.1); };
+  100% { @include scale(1); };
 }
 
 @-webkit-keyframes ScaleUp {
-    0% { @include scale(1); }
-    50% { @include scale(1.1); };
-    100% { @include scale(1); };
+  0% { @include scale(1); }
+  50% { @include scale(1.1); };
+  100% { @include scale(1); };
 }
 
 /* FADEIN
@@ -180,13 +213,13 @@
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    to { opacity: 1; };
+  0% { opacity: 0; }
+  to { opacity: 1; };
 }
 
 @-webkit-keyframes fadeIn {
-    0% { opacity: 0; }
-    to { opacity: 1; };
+  0% { opacity: 0; }
+  to { opacity: 1; };
 }
 
 /* SLIDEINDOWN
@@ -249,7 +282,27 @@
   -webkit-animation: slideInRight $time ease-out backwards;
 }
 
-/* MEDIA QUERY
+/* SLIDEINLEFT
+   ========================================================================== */
+
+@-webkit-keyframes slideInLeft {
+  0% { @include translateX(-100px); opacity: 0; }
+  75% { @include translateX(0); }
+  100% { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  0% { @include translateX(-100px); opacity: 0; }
+  75% { @include translateX(0); }
+  100% { opacity: 1; }
+}
+
+@mixin slideInLeft($time) {
+  animation: slideInRight $time ease-out backwards;
+  -webkit-animation: slideInRight $time ease-out backwards;
+}
+
+/* MEDIA QUERIES
    ========================================================================== */
 
 @mixin mquery($width, $ratio) {
