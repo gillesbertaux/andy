@@ -1,0 +1,12 @@
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+
+css/*
+img/*
+sass/*
+config.rb
+config.codekit
+index.html
