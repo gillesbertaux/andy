@@ -42,6 +42,7 @@ Then call it like:
 - Box Sizing
 - Clearfix
 - Font Face
+- Font Size
 - Hardware Acceleration
 - Hover
 - Media Queries
@@ -50,6 +51,7 @@ Then call it like:
 - Radius
 - Scale
 - Shadows
+- Size
 - TranslateX
 - TranslateY
 - Transitions

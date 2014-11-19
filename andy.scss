@@ -24,6 +24,7 @@ Mixins availables:
   - Radius
   - Scale
   - Shadows
+  - Size
   - TranslateX
   - TranslateY
   - Transitions
@@ -132,6 +133,13 @@ Mixins availables:
   font-style: $style;
 }
 
+/* FONT SIZE */
+
+@mixin fontsize($size) {
+  font-size: $size;
+  font-size: ($size / 16px) * 1rem;
+}
+
 /* HARDWARE ACCELERATION */
 
 @mixin ha {
@@ -211,6 +219,13 @@ Mixins availables:
 	-webkit-box-shadow: 10px 10px 30px 0px $color;
 	-o-box-shadow: 10px 10px 30px 0px $color;
 	box-shadow: 10px 10px 30px 0px $color;
+}
+
+/* SIZE */
+
+@mixin size($width, $height) {
+   width: $width;
+   height: $height;
 }
 
 /* TRANSLATE X */
