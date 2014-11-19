@@ -14,7 +14,7 @@ $ bower install andy
 
 ## How to use
 
-You can either pick the mixins you find useful or include the entire in your SASS project.
+You can either pick the mixins you find useful or include the entire file in your SASS project.
 
 Put this mixin in your helper file:
 
