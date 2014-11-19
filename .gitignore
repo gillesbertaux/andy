@@ -1,6 +1,7 @@
 *.DS_Store
 css/
 img/
+js/
 sass/
 config.rb
 config.codekit
