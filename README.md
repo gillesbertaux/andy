@@ -25,7 +25,6 @@ Put this mixin in your helper file:
   -moz-transition: all $time ease-in-out;
   transition: all $time ease-in-out;
 }
-
 ```
 Then call it like:
 
