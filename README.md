@@ -40,11 +40,14 @@ Then call it like:
 - Borders
 - Border Corners
 - Box Sizing
+- Center Block
 - Clearfix
 - Font Face
 - Font Size
 - Hardware Acceleration
 - Hover
+- Image Retina
+- Line-Height
 - Media Queries
 - Opacity Black
 - Opacity White
