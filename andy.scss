@@ -36,7 +36,7 @@ Mixins availables:
 
 /* BACKGROUND GRADIENTS */
 
-// Usage Example: @include background-gradient(red, black, vertical) 
+// usage example: @include background-gradient(red, black, vertical) 
 
 @mixin background-gradient($startcolor, $endcolor, $orientation) {
     background: $startcolor;
@@ -76,6 +76,8 @@ Mixins availables:
 
 /* BACKGROUND SIZE */
 
+// usage example: @include background-size(100%, 100%); 
+
 @mixin background-size($width, $height) {
      -moz-background-size: $width $height;
   -webkit-background-size: $width $height;
@@ -84,9 +86,13 @@ Mixins availables:
 
 /* BORDER */
 
+// usage example: @include border(2px, solid, #000); 
+
 @mixin border($thickness, $type, $color) { border: $thickness $type $color; }
 
 /* BORDER CORNERS */
+
+// usage example: @include border(100%, 100%, 0, 0); 
 
 @mixin border-radius-separate($topLeftRadius, $topRightRadius, $bottomLeftRadius, $bottomRightRadius) {
   -webkit-border-top-left-radius: $topLeftRadius;
@@ -106,6 +112,8 @@ Mixins availables:
 }
 
 /* BOX SIZING */
+
+// usage example: @include box-sizing(border-box);
 
 @mixin box-sizing($type) {
   -webkit-box-sizing:$type;
@@ -136,6 +144,8 @@ Mixins availables:
 
 /* FONT FACES */
 
+// usage example: @include font-face(gotham,/fonts/gotham.eot,/fonts/gotham.woff,/fonts/gotham.ttf,/fonts/gotham.svg, 300, normal);
+
 @mixin font-face($fontFamily, $eotFileSrc, $woffFileSrc, $ttfFileSrc, $svgFileSrc, $weight, $style) {
   font-family: $fontFamily;
   src: url($eotFileSrc)  format('eot'),
@@ -147,6 +157,8 @@ Mixins availables:
 }
 
 /* FONT SIZE */
+
+// usage example: @include fontsize(16px);
 
 @mixin fontsize($size) {
   font-size: $size;
@@ -164,6 +176,8 @@ Mixins availables:
 
 /* HOVER */
 
+// usage example: @include hover(.3s);
+
 @mixin hover($time) {
   -webkit-transition: all $time ease-in-out;
   -o-transition: all $time ease-in-out;
@@ -172,6 +186,8 @@ Mixins availables:
 }
 
 /* IMAGE RETINA */
+
+// usage example: @include image-2x(/img/image.png, 100%, auto);
 
 @mixin image-2x($image, $width, $height) {
   @media (min--moz-device-pixel-ratio: 1.3),
@@ -187,12 +203,16 @@ Mixins availables:
 
 /* LINE HEIGHT */
 
+// usage example: @include line-height(16);
+
 @mixin line-height($heightValue: 12 ){
   line-height: $heightValue + px; //fallback for old browsers
   line-height: (0.125 * $heightValue) + rem;
 }
 
 /* MEDIA QUERIES */
+
+// usage example: @include mquery(350px, 2) { width: 100%; }
 
 @mixin mquery($width, $ratio) {
   @media only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
@@ -241,6 +261,8 @@ Mixins availables:
 
 /* SCALE */
 
+// usage example: @include scale(2);
+
 @mixin scale($value) { 
   -webkit-transform: scale($value) ;
   transform: scale($value);
@@ -256,6 +278,8 @@ Mixins availables:
 }
 
 /* SIZE */
+
+// usage example: @include size(350px, 350px);
 
 @mixin size($width, $height) {
    width: $width;
