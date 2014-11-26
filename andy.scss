@@ -150,7 +150,7 @@ Mixins availables:
   font-family: $fontFamily;
   src: url($eotFileSrc)  format('eot'),
        url($woffFileSrc) format('woff'),
-       url($ttfFileSrc)  format('truetype');
+       url($ttfFileSrc)  format('truetype'),
        url($svgFileSrc)  format('svg');
   font-weight: $weight;
   font-style: $style;
