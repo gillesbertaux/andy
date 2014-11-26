@@ -150,7 +150,7 @@ Mixins availables:
   font-family: $fontFamily;
   src: url($eotFileSrc)  format('eot'),
        url($woffFileSrc) format('woff'),
-       url($ttfFileSrc)  format('truetype');
+       url($ttfFileSrc)  format('truetype'),
        url($svgFileSrc)  format('svg');
   font-weight: $weight;
   font-style: $style;
@@ -214,12 +214,12 @@ Mixins availables:
 
 // usage example: @include mquery(350px, 2) { width: 100%; }
 
-@mixin mquery($width, $ratio) {
+/*@mixin mquery($width, $ratio) {
   @media only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
   @media only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio), {
     @content;
   }
-}
+}*/
 
 @mixin mquery-w($width) {
   @media only screen and (max-width: $width) {
@@ -227,12 +227,12 @@ Mixins availables:
   }
 }
 
-@mixin mquery-r($ratio)
+/*@mixin mquery-r($ratio)
  @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
  @media only screen and (min--moz-device-pixel-ratio: $ratio) {
     @content;
   }
-}
+}*/
 
 /* OPACITY */
 
