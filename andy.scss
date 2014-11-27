@@ -215,9 +215,11 @@ Mixins availables:
 // usage example: @include mquery(350px, 2) { width: 100%; }
 
 @mixin mquery($width, $ratio) {
-  @media only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
-  @media only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio) {
-    @content;
+  @media 
+  only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
+  only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio),
+  only screen and (max-width: $width) and  (min-device-pixel-ratio: $ratio) {
+  @content;
   }
 }
 
@@ -228,8 +230,11 @@ Mixins availables:
 }
 
 @mixin mquery-r($ratio) {
- @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
- @media only screen and (min--moz-device-pixel-ratio: $ratio) {
+  @media 
+    only screen and (-webkit-min-device-pixel-ratio: $ratio),
+    only screen and (min--moz-device-pixel-ratio: $ratio),
+    only screen and (-o-min-device-pixel-ratio: $ratio),
+    only screen and (min-device-pixel-ratio: $ratio) {
     @content;
   }
 }
@@ -271,10 +276,10 @@ Mixins availables:
 /* SHADOWS */
 
 @mixin shadow($color) {
-	-moz-box-shadow: 10px 10px 30px 0px $color;
-	-webkit-box-shadow: 10px 10px 30px 0px $color;
-	-o-box-shadow: 10px 10px 30px 0px $color;
-	box-shadow: 10px 10px 30px 0px $color;
+  -moz-box-shadow: 10px 10px 30px 0px $color;
+  -webkit-box-shadow: 10px 10px 30px 0px $color;
+  -o-box-shadow: 10px 10px 30px 0px $color;
+  box-shadow: 10px 10px 30px 0px $color;
 }
 
 /* SIZE */
