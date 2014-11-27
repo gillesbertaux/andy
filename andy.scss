@@ -216,7 +216,7 @@ Mixins availables:
 
 @mixin mquery($width, $ratio) {
   @media only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
-  @media only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio), {
+  @media only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio) {
     @content;
   }
 }
