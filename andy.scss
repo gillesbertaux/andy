@@ -227,7 +227,7 @@ Mixins availables:
   }
 }
 
-@mixin mquery-r($ratio)
+@mixin mquery-r($ratio) {
  @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
  @media only screen and (min--moz-device-pixel-ratio: $ratio) {
     @content;
