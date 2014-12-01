@@ -161,8 +161,9 @@ Mixins availables:
 // usage example: @include fontsize(16px);
 
 @mixin fontsize($size) {
+  $base-font-size: 16px !default;
   font-size: $size;
-  font-size: ($size / 16px) * 1rem;
+  font-size: ($size / $base-font-size) * 1rem;
 }
 
 /* HARDWARE ACCELERATION */
