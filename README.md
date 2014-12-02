@@ -1,6 +1,6 @@
 # Andy.scss: Open-Source Collection of Useful SASS Mixins Library.
 
-**Current Version: 1.0.2** 
+**Current Version: 1.0.3** 
 
 Homepage: [http://gillesbertaux.com/andy](http://gillesbertaux.com/andy)
  
@@ -66,3 +66,4 @@ Then call it like:
 
 Contributors:
 - [@mrjacob](https://github.com/mrjacob)
+- [@mknadler](https://github.com/mknadler)
