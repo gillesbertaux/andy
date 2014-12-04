@@ -15,6 +15,12 @@ Download or use Bower:
 $ bower install andy
 ```
 
+or
+
+```
+gem 'rails-assets-andy'
+```
+
 ## How to use
 
 You can either pick the mixins you find useful or include the entire file in your SASS project.
