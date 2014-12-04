@@ -15,7 +15,9 @@ Mixins availables:
   - Border Corners
   - Box Sizing
   - Center Block
+  - Centering Block: Horizontal, Vertical, Both
   - Clearfix
+  - Div Outline
   - Font Face
   - Hardware Acceleration
   - Hover
@@ -24,10 +26,12 @@ Mixins availables:
   - Media Queries
   - Opacity Black
   - Opacity White
+  - Position
   - Radius
   - Scale
   - Shadows
   - Size
+  - Text Shadow 
   - TranslateX
   - TranslateY
   - Transitions
@@ -129,6 +133,36 @@ Mixins availables:
   margin-right: auto;
 }
 
+/* CENTERING BLOCKS ELEMENTS, HORIZONTAL, VERTICAL, BOTH */
+
+// Important: you must have a parent element with position: relative. 
+
+@mixin center-both {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+// if height is unknown.
+@mixin center-h {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+// if height is defined.
+@mixin center-h--unk($height) {
+  position: absolute;
+  top: 50%;
+  height: $height;
+  margin-top: -$height/2;
+}
+
 /* CLEARFIX */
 
 %clearfix {
@@ -140,6 +174,12 @@ Mixins availables:
   &:after {
     clear: both;
   }
+}
+
+/* DIV OUTLINE */
+
+@mixin outline {
+  box-shadow: rgba(255, 255, 255, 0.5) 0 1px 0, inset rgba(0, 0, 0, 0.75) 0 1px 0;
 }
 
 /* FONT FACES */
@@ -247,6 +287,18 @@ Mixins availables:
   filter: alpha(opacity=($opacity * 100));
 }
 
+/* POSITION */
+
+// usage example: @include position(absolute, 10px, null, 10px, 10px);
+
+@mixin position($type,$left,$right,$top,$bottom) {
+  position: $type;
+  left: $left;
+  right: $right;
+  top: $top;
+  bottom: $bottom;
+}
+
 /* BLACK / WHITE OPACITY */
 
 @function black($opacity) {
@@ -290,6 +342,12 @@ Mixins availables:
 @mixin size($width, $height) {
    width: $width;
    height: $height;
+}
+
+/* TEXT SHADOW */
+
+@mixin textshadow($value) {
+   text-shadow: rgba(255, 255, 255, $value) 0 1px 0;
 }
 
 /* TRANSLATE X */

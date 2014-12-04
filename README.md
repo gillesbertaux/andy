@@ -38,29 +38,32 @@ Then call it like:
 --------
 
 **Mixins availables:**
-- Background Gradient
-- Background Size
-- Borders
-- Border Corners
-- Box Sizing
-- Center Block
-- Clearfix
-- Font Face
-- Font Size
-- Hardware Acceleration
-- Hover
-- Image Retina
-- Line-Height
-- Media Queries
-- Opacity Black
-- Opacity White
-- Radius
-- Scale
-- Shadows
-- Size
-- TranslateX
-- TranslateY
-- Transitions
+  - Background Gradient
+  - Background Size
+  - Borders
+  - Border Corners
+  - Box Sizing
+  - Center Block
+  - Centering Block: Horizontal, Vertical, Both
+  - Clearfix
+  - Div Outline
+  - Font Face
+  - Hardware Acceleration
+  - Hover
+  - Image Retina
+  - Line-Height
+  - Media Queries
+  - Opacity Black
+  - Opacity White
+  - Position
+  - Radius
+  - Scale
+  - Shadows
+  - Size
+  - Text Shadow 
+  - TranslateX
+  - TranslateY
+  - Transitions
 
 --------
 
