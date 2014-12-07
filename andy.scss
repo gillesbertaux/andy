@@ -200,9 +200,13 @@ Mixins available:
 /* FONT SIZE */
 
 // usage example: @include fontsize(16px);
+//            or: @include fontsize(16);
 
 @mixin fontsize($size) {
   $base-font-size: 16px !default;
+  @if (unitless($size)){
+    $size: $size * 1px;
+  }
   font-size: $size;
   font-size: ($size / $base-font-size) * 1rem;
 }
@@ -220,11 +224,11 @@ Mixins available:
 
 // usage example: @include hover(.3s);
 
-@mixin hover($time) {
-  -webkit-transition: all $time ease-in-out;
-  -o-transition: all $time ease-in-out;
-  -moz-transition: all $time ease-in-out;
-  transition: all $time ease-in-out;
+@mixin hover($time, $timing-function: ease-in-out) {
+  -webkit-transition: all $time $timing-function;
+  -o-transition: all $time $timing-function;
+  -moz-transition: all $time $timing-function;
+  transition: all $time $timing-function;
 }
 
 /* IMAGE RETINA */
@@ -256,18 +260,18 @@ Mixins available:
 
 // usage example: @include mquery(350px, 2) { width: 100%; }
 
-@mixin mquery($width, $ratio) {
-  @media
-  only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
-  only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio),
-  only screen and (max-width: $width) and  (min-device-pixel-ratio: $ratio) {
-  @content;
-  }
-}
-
-@mixin mquery-w($width) {
-  @media only screen and (max-width: $width) {
-    @content;
+@@mixin mquery($width, $ratio: false) {
+  @if $ratio {
+      @media
+      only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
+      only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio),
+      only screen and (max-width: $width) and  (min-device-pixel-ratio: $ratio) {
+        @content;
+      }
+  } @else {
+      @media only screen and (max-width: $width) {
+        @content;
+      }
   }
 }
 
@@ -277,7 +281,7 @@ Mixins available:
     only screen and (min--moz-device-pixel-ratio: $ratio),
     only screen and (-o-min-device-pixel-ratio: $ratio),
     only screen and (min-device-pixel-ratio: $ratio) {
-    @content;
+      @content;
   }
 }
 
@@ -385,18 +389,18 @@ Mixins available:
 
 /* TRANSITION SCALEDOWN */
 
-@mixin scaledown($time:1s) {
-  -webkit-animation: scaledown $time ease-out 1;
-  animation: scaledown $time ease-out 1;
+@mixin scaleDown($time:1s) {
+  -webkit-animation: scaleDown $time ease-out 1;
+  animation: scaleDown $time ease-out 1;
 }
 
-@keyframes scaledown {
+@keyframes scaleDown {
   0% { @include scale(1); }
   50% { @include scale(.95); };
   100% { @include scale(1); };
 }
 
-@-webkit-keyframes scaledown {
+@-webkit-keyframes scaleDown {
   0% { @include scale(1); }
   50% { @include scale(.95); };
   100% { @include scale(1); };
@@ -404,18 +408,18 @@ Mixins available:
 
 /* TRANSITION SCALE UP HOVER */
 
-@mixin ScaleUp($time:1s) {
-  -webkit-animation: ScaleUp $time ease-in-out 1;
-  animation: ScaleUp $time ease-in-out 1;
+@mixin scaleUp($time:1s) {
+  -webkit-animation: scaleUp $time ease-in-out 1;
+  animation: scaleUp $time ease-in-out 1;
 }
 
-@keyframes ScaleUp {
+@keyframes scaleUp {
   0% { @include scale(1); }
   50% { @include scale(1.1); };
   100% { @include scale(1); };
 }
 
-@-webkit-keyframes ScaleUp {
+@-webkit-keyframes scaleUp {
   0% { @include scale(1); }
   50% { @include scale(1.1); };
   100% { @include scale(1); };
