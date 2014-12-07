@@ -1,14 +1,14 @@
 /* -----------------------------------------------
- 
+
 Andy.SCSS: Open-Source Collection of Useful SASS Mixins Library.
 
 URL: http://gillesbertaux.com/andy
 
 By: Gilles Bertaux | http://gillesbertaux.com | @gillesbertaux
- 
-The purpose of Andy is to gather useful mixins and avoid enless researches or heavy framework use. Feel free to fork it on Github and add your own mixins: https://github.com/gillesbertaux/andy
 
-Mixins availables:
+The purpose of Andy is to gather useful mixins and avoid endless research or heavy framework use. Feel free to fork it on Github and add your own mixins: https://github.com/gillesbertaux/andy
+
+Mixins available:
   - Background Gradient
   - Background Size
   - Borders
@@ -24,6 +24,7 @@ Mixins availables:
   - Image Retina
   - Line-Height
   - Media Queries
+  - Opacity
   - Opacity Black
   - Opacity White
   - Position
@@ -31,7 +32,7 @@ Mixins availables:
   - Scale
   - Shadows
   - Size
-  - Text Shadow 
+  - Text Shadow
   - TranslateX
   - TranslateY
   - Transitions
@@ -40,7 +41,7 @@ Mixins availables:
 
 /* BACKGROUND GRADIENTS */
 
-// usage example: @include background-gradient(red, black, vertical) 
+// usage example: @include background-gradient(red, black, vertical)
 
 @mixin background-gradient($startcolor, $endcolor, $orientation) {
     background: $startcolor;
@@ -80,7 +81,7 @@ Mixins availables:
 
 /* BACKGROUND SIZE */
 
-// usage example: @include background-size(100%, 100%); 
+// usage example: @include background-size(100%, 100%);
 
 @mixin background-size($width, $height) {
      -moz-background-size: $width $height;
@@ -90,13 +91,13 @@ Mixins availables:
 
 /* BORDER */
 
-// usage example: @include border(2px, solid, #000); 
+// usage example: @include border(2px, solid, #000);
 
 @mixin border($thickness, $type, $color) { border: $thickness $type $color; }
 
 /* BORDER CORNERS */
 
-// usage example: @include border(100%, 100%, 0, 0); 
+// usage example: @include border(100%, 100%, 0, 0);
 
 @mixin border-radius-separate($topLeftRadius, $topRightRadius, $bottomLeftRadius, $bottomRightRadius) {
   -webkit-border-top-left-radius: $topLeftRadius;
@@ -135,7 +136,7 @@ Mixins availables:
 
 /* CENTERING BLOCKS ELEMENTS, HORIZONTAL, VERTICAL, BOTH */
 
-// Important: you must have a parent element with position: relative. 
+// Important: you must have a parent element with position: relative.
 
 @mixin center-both {
   position: absolute;
@@ -146,21 +147,21 @@ Mixins availables:
   transform: translate(-50%,-50%);
 }
 
+// if height is defined.
+@mixin center-h($height) {
+  position: absolute;
+  top: 50%;
+  height: $height;
+  margin-top: -$height/2;
+}
+
 // if height is unknown.
-@mixin center-h {
+@mixin center-h--unk {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-// if height is defined.
-@mixin center-h--unk($height) {
-  position: absolute;
-  top: 50%;
-  height: $height;
-  margin-top: -$height/2;
 }
 
 /* CLEARFIX */
@@ -256,7 +257,7 @@ Mixins availables:
 // usage example: @include mquery(350px, 2) { width: 100%; }
 
 @mixin mquery($width, $ratio) {
-  @media 
+  @media
   only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
   only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio),
   only screen and (max-width: $width) and  (min-device-pixel-ratio: $ratio) {
@@ -271,7 +272,7 @@ Mixins availables:
 }
 
 @mixin mquery-r($ratio) {
-  @media 
+  @media
     only screen and (-webkit-min-device-pixel-ratio: $ratio),
     only screen and (min--moz-device-pixel-ratio: $ratio),
     only screen and (-o-min-device-pixel-ratio: $ratio),
@@ -287,6 +288,18 @@ Mixins availables:
   filter: alpha(opacity=($opacity * 100));
 }
 
+/* BLACK / WHITE OPACITY */
+
+// usage example: div { border: 1px solid black(.2); }
+
+@function black($opacity) {
+  @return rgba(0,0,0,$opacity);
+}
+
+@function white($opacity) {
+  @return rgba(255,255,255,$opacity);
+}
+
 /* POSITION */
 
 // usage example: @include position(absolute, 10px, null, 10px, 10px);
@@ -299,40 +312,42 @@ Mixins availables:
   bottom: $bottom;
 }
 
-/* BLACK / WHITE OPACITY */
-
-@function black($opacity) {
-  @return rgba(0,0,0,$opacity)
-}
-
-@function white($opacity) {
-  @return rgba(255,255,255,$opacity)
-}
-
 /* RADIUS */
 
-@mixin radius($radius) { 
-  -webkit-border-radius: $radius; 
-  -moz-border-radius: $radius; 
-  border-radius: $radius; 
+@mixin radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
 }
 
 /* SCALE */
 
 // usage example: @include scale(2);
 
-@mixin scale($value) { 
-  -webkit-transform: scale($value) ;
+@mixin scale($value) {
+  -ms-transform: scale($value);
+  -webkit-transform: scale($value);
   transform: scale($value);
 }
 
 /* SHADOWS */
 
-@mixin shadow($color) {
-  -moz-box-shadow: 10px 10px 30px 0px $color;
-  -webkit-box-shadow: 10px 10px 30px 0px $color;
-  -o-box-shadow: 10px 10px 30px 0px $color;
-  box-shadow: 10px 10px 30px 0px $color;
+// usage examples: @include shadow(black, 5px 5px 0px 3px);
+//             or: @include shadow(blue, 2px 3px 2px 2px, inset);
+
+@mixin shadow($color, $x-y-blur-spread:10px 10px 30px 0px, $inset:false) {
+  @if ($inset == inset) {
+      -moz-box-shadow: inset $x-y-blur-spread $color;
+      -webkit-box-shadow: inset $x-y-blur-spread $color;
+      -o-box-shadow: inset $x-y-blur-spread $color;
+      box-shadow: inset $x-y-blur-spread $color;
+  }
+  @else {
+      -moz-box-shadow: $x-y-blur-spread $color;
+      -webkit-box-shadow: $x-y-blur-spread $color;
+      -o-box-shadow: $x-y-blur-spread $color;
+      box-shadow: $x-y-blur-spread $color;
+  }
 }
 
 /* SIZE */
@@ -370,7 +385,7 @@ Mixins availables:
 
 /* TRANSITION SCALEDOWN */
 
-@mixin scaledown($time) {
+@mixin scaledown($time:1s) {
   -webkit-animation: scaledown $time ease-out 1;
   animation: scaledown $time ease-out 1;
 }
@@ -389,7 +404,7 @@ Mixins availables:
 
 /* TRANSITION SCALE UP HOVER */
 
-@mixin ScaleUp($time) {
+@mixin ScaleUp($time:1s) {
   -webkit-animation: ScaleUp $time ease-in-out 1;
   animation: ScaleUp $time ease-in-out 1;
 }
@@ -408,7 +423,7 @@ Mixins availables:
 
 /* TRANSITION FADEIN */
 
-@mixin fadeIn($time) {
+@mixin fadeIn($time:1s) {
   -webkit-animation: fadeIn $time ease-out 1;
   animation: fadeIn $time ease-out 1;
 }
@@ -498,4 +513,3 @@ Mixins availables:
   animation: slideInRight $time ease-out backwards;
   -webkit-animation: slideInRight $time ease-out backwards;
 }
-
