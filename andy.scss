@@ -260,7 +260,7 @@ Mixins available:
 
 // usage example: @include mquery(350px, 2) { width: 100%; }
 
-@@mixin mquery($width, $ratio: false) {
+@mixin mquery($width, $ratio: false) {
   @if $ratio {
       @media
       only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),

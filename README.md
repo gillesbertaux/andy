@@ -1,6 +1,6 @@
 # Andy.scss: Open-Source Collection of Useful SASS Mixins Library.
 
-**Current Version: 1.0.3** 
+**Current Version: 1.0.4** 
 
 Homepage: [http://gillesbertaux.com/andy](http://gillesbertaux.com/andy)
  
