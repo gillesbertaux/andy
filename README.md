@@ -1,6 +1,6 @@
 # Andy.scss: Open-Source Collection of Useful SASS Mixins Library.
 
-**Current Version: 1.0.2** 
+**Current Version: 1.0.4** 
 
 Homepage: [http://gillesbertaux.com/andy](http://gillesbertaux.com/andy)
  
@@ -13,6 +13,12 @@ Download or use Bower:
 
 ```
 $ bower install andy
+```
+
+or
+
+```
+gem 'rails-assets-andy'
 ```
 
 ## How to use
@@ -38,31 +44,35 @@ Then call it like:
 --------
 
 **Mixins availables:**
-- Background Gradient
-- Background Size
-- Borders
-- Border Corners
-- Box Sizing
-- Center Block
-- Clearfix
-- Font Face
-- Font Size
-- Hardware Acceleration
-- Hover
-- Image Retina
-- Line-Height
-- Media Queries
-- Opacity Black
-- Opacity White
-- Radius
-- Scale
-- Shadows
-- Size
-- TranslateX
-- TranslateY
-- Transitions
+  - Background Gradient
+  - Background Size
+  - Borders
+  - Border Corners
+  - Box Sizing
+  - Center Block
+  - Centering Block: Horizontal, Vertical, Both
+  - Clearfix
+  - Div Outline
+  - Font Face
+  - Hardware Acceleration
+  - Hover
+  - Image Retina
+  - Line-Height
+  - Media Queries
+  - Opacity Black
+  - Opacity White
+  - Position
+  - Radius
+  - Scale
+  - Shadows
+  - Size
+  - Text Shadow 
+  - TranslateX
+  - TranslateY
+  - Transitions
 
 --------
 
 Contributors:
 - [@mrjacob](https://github.com/mrjacob)
+- [@mknadler](https://github.com/mknadler)
