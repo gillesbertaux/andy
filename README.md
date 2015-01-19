@@ -1,6 +1,6 @@
 # Andy.scss: Open-Source Collection of Useful SASS Mixins Library.
 
-**Current Version: 1.0.4** 
+**Current Version: 1.1** 
 
 Homepage: [http://gillesbertaux.com/andy](http://gillesbertaux.com/andy)
  
@@ -40,6 +40,16 @@ Then call it like:
 ```
 @include hover(.3s);
 ```
+
+[NEW] In case you want to include the entire file, you can change the default settings in andy.scss. For example, you can change the base font-size:
+
+```
+/* ANDY SETTINGS */
+
+$base-font-size: 16px !default;
+```
+
+Additional default settings will be soon added.
 
 --------
 
