@@ -125,7 +125,6 @@ $base-font-size: 16px !default;
 // usage example: @include box-sizing(border-box);
 
 @mixin box-sizing($type) {
-  -webkit-box-sizing:$type;
   -moz-box-sizing:$type;
   box-sizing:$type;
 }
