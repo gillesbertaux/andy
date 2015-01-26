@@ -228,8 +228,6 @@ $base-font-size: 16px !default;
 
 @mixin hover($time, $timing-function: ease-in-out) {
   -webkit-transition: all $time $timing-function;
-  -o-transition: all $time $timing-function;
-  -moz-transition: all $time $timing-function;
   transition: all $time $timing-function;
 }
 
