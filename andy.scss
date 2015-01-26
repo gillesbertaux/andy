@@ -163,9 +163,9 @@ $base-font-size: 16px !default;
 @mixin center-h--unk {
   position: relative;
   top: 50%;
-  -webkit-transform: translate-y(-50%);
-  -ms-transform: translate-y(-50%);
-  transform: translate-y(-50%);
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 /* CLEARFIX */
@@ -375,19 +375,19 @@ $base-font-size: 16px !default;
 /* TRANSLATE X */
 
 @mixin translate-x($value) {
-  -webkit-transform: translate-x($value);
-  -ms-transform: translate-x($value);
-  -o-transform: translate-x($value);
-  transform: translate-x($value);
+  -webkit-transform: translateX($value);
+  -ms-transform: translateX($value);
+  -o-transform: translateX($value);
+  transform: translateX($value);
 }
 
 /* TRANSLATE Y */
 
 @mixin translate-y($value) {
-  -webkit-transform: translate-y($value);
-  -ms-transform: translate-y($value);
-  -o-transform: translate-y($value);
-  transform: translate-y($value);
+  -webkit-transform: translateY($value);
+  -ms-transform: translateY($value);
+  -o-transform: translateY($value);
+  transform: translateY$value);
 }
 
 /* TRANSITION SCALE-DOWN */
