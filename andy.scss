@@ -254,8 +254,8 @@ $base-font-size: 16px !default;
 // usage example: @include line-height(16);
 
 @mixin line-height($heightValue: 12){
-    line-height: $heightValue + px; //fallback for old browsers
-    line-height: ( 1 / ( $base-font-size / ($base-font-size * 0 + 1) ) * $heightValue + rem );
+    line-height: $heightValue * 1px; //fallback for old browsers
+    line-height: ( 1 / ( $base-font-size / ($base-font-size * 0 + 1) ) * $heightValue * 1rem );
 }
 
 /* MEDIA QUERIES */
