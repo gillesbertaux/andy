@@ -33,11 +33,15 @@ Mixins available:
   - Shadows
   - Size
   - Text Shadow
-  - TranslateX
-  - TranslateY
+  - translate-x
+  - translate-y
   - Transitions
 
  ----------------------------------------------- */
+
+/* ANDY SETTINGS */
+
+$base-font-size: 16px !default;
 
 /* BACKGROUND GRADIENTS */
 
@@ -159,9 +163,9 @@ Mixins available:
 @mixin center-h--unk {
   position: relative;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  -webkit-transform: translate-y(-50%);
+  -ms-transform: translate-y(-50%);
+  transform: translate-y(-50%);
 }
 
 /* CLEARFIX */
@@ -202,8 +206,7 @@ Mixins available:
 // usage example: @include fontsize(16px);
 //            or: @include fontsize(16);
 
-@mixin fontsize($size) {
-  $base-font-size: 16px !default;
+@mixin font-size($size) {
   @if (unitless($size)){
     $size: $size * 1px;
   }
@@ -251,9 +254,9 @@ Mixins available:
 
 // usage example: @include line-height(16);
 
-@mixin line-height($heightValue: 12 ){
-  line-height: $heightValue + px; //fallback for old browsers
-  line-height: (0.125 * $heightValue) + rem;
+@mixin line-height($heightValue: 12){
+    line-height: $heightValue + px; //fallback for old browsers
+    line-height: ( 1 / ( $base-font-size / ($base-font-size * 0 + 1) ) * $heightValue + rem );
 }
 
 /* MEDIA QUERIES */
@@ -365,42 +368,42 @@ Mixins available:
 
 /* TEXT SHADOW */
 
-@mixin textshadow($value) {
+@mixin text-shadow($value) {
    text-shadow: rgba(255, 255, 255, $value) 0 1px 0;
 }
 
 /* TRANSLATE X */
 
-@mixin translateX($value) {
-  -webkit-transform: translateX($value);
-  -ms-transform: translateX($value);
-  -o-transform: translateX($value);
-  transform: translateX($value);
+@mixin translate-x($value) {
+  -webkit-transform: translate-x($value);
+  -ms-transform: translate-x($value);
+  -o-transform: translate-x($value);
+  transform: translate-x($value);
 }
 
 /* TRANSLATE Y */
 
-@mixin translateY($value) {
-  -webkit-transform: translateY($value);
-  -ms-transform: translateY($value);
-  -o-transform: translateY($value);
-  transform: translateY($value);
+@mixin translate-y($value) {
+  -webkit-transform: translate-y($value);
+  -ms-transform: translate-y($value);
+  -o-transform: translate-y($value);
+  transform: translate-y($value);
 }
 
-/* TRANSITION SCALEDOWN */
+/* TRANSITION SCALE-DOWN */
 
-@mixin scaleDown($time:1s) {
-  -webkit-animation: scaleDown $time ease-out 1;
-  animation: scaleDown $time ease-out 1;
+@mixin scale-down($time:1s) {
+  -webkit-animation: scale-down $time ease-out 1;
+  animation: scale-down $time ease-out 1;
 }
 
-@keyframes scaleDown {
+@keyframes scale-down {
   0% { @include scale(1); }
   50% { @include scale(.95); };
   100% { @include scale(1); };
 }
 
-@-webkit-keyframes scaleDown {
+@-webkit-keyframes scale-down {
   0% { @include scale(1); }
   50% { @include scale(.95); };
   100% { @include scale(1); };
@@ -408,112 +411,112 @@ Mixins available:
 
 /* TRANSITION SCALE UP HOVER */
 
-@mixin scaleUp($time:1s) {
-  -webkit-animation: scaleUp $time ease-in-out 1;
-  animation: scaleUp $time ease-in-out 1;
+@mixin scale-up($time:1s) {
+  -webkit-animation: scale-up $time ease-in-out 1;
+  animation: scale-up $time ease-in-out 1;
 }
 
-@keyframes scaleUp {
+@keyframes scale-up {
   0% { @include scale(1); }
   50% { @include scale(1.1); };
   100% { @include scale(1); };
 }
 
-@-webkit-keyframes scaleUp {
+@-webkit-keyframes scale-up {
   0% { @include scale(1); }
   50% { @include scale(1.1); };
   100% { @include scale(1); };
 }
 
-/* TRANSITION FADEIN */
+/* TRANSITION FADE-IN */
 
-@mixin fadeIn($time:1s) {
-  -webkit-animation: fadeIn $time ease-out 1;
-  animation: fadeIn $time ease-out 1;
+@mixin fade-in($time:1s) {
+  -webkit-animation: fade-in $time ease-out 1;
+  animation: fade-in $time ease-out 1;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   0% { opacity: 0; }
   to { opacity: 1; };
 }
 
-@-webkit-keyframes fadeIn {
+@-webkit-keyframes fade-in {
   0% { opacity: 0; }
   to { opacity: 1; };
 }
 
-/* TRANSITION SLIDEINDOWN */
+/* TRANSITION SLIDE-IN-DOWN */
 
-@-webkit-keyframes slideInDown {
-  0% { @include translateY(-100px); opacity: 0; }
-  75% { @include translateY(0); }
+@-webkit-keyframes slide-in-down {
+  0% { @include translate-y(-100px); opacity: 0; }
+  75% { @include translate-y(0); }
   100% { opacity: 1; }
 }
 
-@keyframes slideInDown {
-  0% { @include translateY(-100px); opacity: 0; }
-  75% { @include translateY(0); }
+@keyframes slide-in-down {
+  0% { @include translate-y(-100px); opacity: 0; }
+  75% { @include translate-y(0); }
   100% { opacity: 1; }
 }
 
-@mixin slideInDown($time) {
-  animation: slideInDown $time ease-in-out;
-  -webkit-animation: slideInDown $time ease-in-out;
+@mixin slide-in-down($time) {
+  animation: slide-in-down $time ease-in-out;
+  -webkit-animation: slide-in-down $time ease-in-out;
 }
 
-/* TRANSITION SLIDEINUP */
+/* TRANSITION SLIDE-IN-UP */
 
-@-webkit-keyframes slideInUp {
-  0% { @include translateY(100px); opacity: 0; }
-  75% { @include translateY(0); }
+@-webkit-keyframes slide-in-up {
+  0% { @include translate-y(100px); opacity: 0; }
+  75% { @include translate-y(0); }
   100% { opacity: 1; }
 }
 
-@keyframes slideInUp {
-  0% { @include translateY(100px); opacity: 0; }
-  75% { @include translateY(0); }
+@keyframes slide-in-up {
+  0% { @include translate-y(100px); opacity: 0; }
+  75% { @include translate-y(0); }
   100% { opacity: 1; }
 }
 
-@mixin slideInUp($time) {
-  animation: slideInUp $time ease-in-out;
-  -webkit-animation: slideInUp $time ease-in-out;
+@mixin slide-in-up($time) {
+  animation: slide-in-up $time ease-in-out;
+  -webkit-animation: slide-in-up $time ease-in-out;
 }
 
-/* TRANSITION SLIDEINRIGHT */
+/* TRANSITION SLIDE-IN-RIGHT */
 
-@-webkit-keyframes slideInRight {
-  0% { @include translateX(100px); opacity: 0; }
-  75% { @include translateX(0); }
+@-webkit-keyframes slide-in-right {
+  0% { @include translate-x(100px); opacity: 0; }
+  75% { @include translate-x(0); }
   100% { opacity: 1; }
 }
 
-@keyframes slideInRight {
-  0% { @include translateX(100px); opacity: 0; }
-  75% { @include translateX(0); }
+@keyframes slide-in-right {
+  0% { @include translate-x(100px); opacity: 0; }
+  75% { @include translate-x(0); }
   100% { opacity: 1; }
 }
 
-@mixin slideInRight($time) {
-  animation: slideInRight $time ease-out backwards;
-  -webkit-animation: slideInRight $time ease-out backwards;
+@mixin slide-in-right($time) {
+  animation: slide-in-right $time ease-out backwards;
+  -webkit-animation: slide-in-right $time ease-out backwards;
 }
 
 /* TRANSITION SLIDEINLEFT */
 
-@-webkit-keyframes slideInLeft {
-  0% { @include translateX(-100px); opacity: 0; }
-  75% { @include translateX(0); }
+@-webkit-keyframes slide-in-left {
+  0% { @include translate-x(-100px); opacity: 0; }
+  75% { @include translate-x(0); }
   100% { opacity: 1; }
 }
 
-@keyframes slideInRight {
-  0% { @include translateX(-100px); opacity: 0; }
-  75% { @include translateX(0); }
+@keyframes slide-in-left {
+  0% { @include translate-x(-100px); opacity: 0; }
+  75% { @include translate-x(0); }
   100% { opacity: 1; }
 }
 
-@mixin slideInLeft($time) {
-  animation: slideInRight $time ease-out backwards;
-  -webkit-animation: slideInRight $time ease-out backwards;
+@mixin slide-in-left($time) {
+  animation: slide-in-left $time ease-out backwards;
+  -webkit-animation: slide-in-left $time ease-out backwards;
 }
