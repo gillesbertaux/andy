@@ -384,7 +384,7 @@ $base-font-size: 16px !default;
   -webkit-transform: translateY($value);
   -ms-transform: translateY($value);
   -o-transform: translateY($value);
-  transform: translateY$value);
+  transform: translateY($value);
 }
 
 /* TRANSITION SCALE-DOWN */
