@@ -214,15 +214,6 @@ $base-font-size: 16px !default;
   transform: translate3d(0,0,0);
 }
 
-/* HOVER */
-
-// usage example: @include hover(.3s);
-
-@mixin hover($time, $timing-function: ease-in-out) {
-  -webkit-transition: all $time $timing-function;
-  transition: all $time $timing-function;
-}
-
 /* IMAGE RETINA */
 
 // usage example: @include image-2x(/img/image.png, 100%, auto);
@@ -377,6 +368,16 @@ $base-font-size: 16px !default;
   -ms-transform: translateY($value);
   -o-transform: translateY($value);
   transform: translateY($value);
+}
+
+/* TRANSITION */
+
+// usage example: @include hover(.3s);
+//       or @include hover(.3s, ease-in);
+
+@mixin transition($time, $timing-function: ease-in-out) {
+  -webkit-transition: all $time $timing-function;
+  transition: all $time $timing-function;
 }
 
 /* TRANSITION SCALE-DOWN */
