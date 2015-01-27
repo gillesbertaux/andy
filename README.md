@@ -76,16 +76,10 @@ Additional default settings will be soon added.
   - Shadows
   - Size
   - Text Shadow
-<<<<<<< HEAD
   - Translate-x
   - Translate-y
   - Transition
   - Transitions Snippets
-=======
-  - TranslateX
-  - TranslateY
-  - Transitions
->>>>>>> 5c99116b5804554e04d54818f00a78c1dccae7da
 
 --------
 
