@@ -219,7 +219,6 @@ $base-font-size: 16px !default;
 @mixin ha {
   -webkit-transform: translate3d(0,0,0);
   -ms-transform: translate3d(0,0,0);
-  -o-transform: translate3d(0,0,0);
   transform: translate3d(0,0,0);
 }
 
@@ -377,7 +376,6 @@ $base-font-size: 16px !default;
 @mixin translate-x($value) {
   -webkit-transform: translate-x($value);
   -ms-transform: translate-x($value);
-  -o-transform: translate-x($value);
   transform: translate-x($value);
 }
 
@@ -386,7 +384,6 @@ $base-font-size: 16px !default;
 @mixin translate-y($value) {
   -webkit-transform: translate-y($value);
   -ms-transform: translate-y($value);
-  -o-transform: translate-y($value);
   transform: translate-y($value);
 }
 
