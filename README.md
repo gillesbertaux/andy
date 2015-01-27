@@ -86,3 +86,4 @@ Additional default settings will be soon added.
 Contributors:
 - [@mrjacob](https://github.com/mrjacob)
 - [@mknadler](https://github.com/mknadler)
+- [@hugogiraudel](https://github.com/HugoGiraudel)
