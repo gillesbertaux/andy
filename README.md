@@ -1,9 +1,9 @@
-# Andy.scss: Open-Source Collection of Useful SASS Mixins Library.
+# Andy.scss: Open-Source Collection of Useful Sass Mixins Library.
 
-**Current Version: 1.1** 
+**Current Version: 1.1**
 
 Homepage: [http://gillesbertaux.com/andy](http://gillesbertaux.com/andy)
- 
+
 The purpose of Andy is to gather useful mixins and avoid enless researches or heavy framework use. Feel free to fork it on Github and add your own mixins: https://github.com/gillesbertaux/andy
 
 
@@ -23,7 +23,7 @@ gem 'rails-assets-andy'
 
 ## How to use
 
-You can either pick the mixins you find useful or include the entire file in your SASS project.
+You can either pick the mixins you find useful or include the entire file in your Sass project.
 
 Put this mixin in your helper file:
 
@@ -76,10 +76,16 @@ Additional default settings will be soon added.
   - Shadows
   - Size
   - Text Shadow
+<<<<<<< HEAD
   - Translate-x
   - Translate-y
   - Transition
   - Transitions Snippets
+=======
+  - TranslateX
+  - TranslateY
+  - Transitions
+>>>>>>> 5c99116b5804554e04d54818f00a78c1dccae7da
 
 --------
 
