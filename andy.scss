@@ -371,31 +371,19 @@ $base-font-size: 16px !default;
 /* TRANSLATE X */
 
 @mixin translate-x($value) {
-<<<<<<< HEAD
-  -webkit-transform: translate-x($value);
-  -ms-transform: translate-x($value);
-  transform: translate-x($value);
-=======
   -webkit-transform: translateX($value);
   -ms-transform: translateX($value);
   -o-transform: translateX($value);
   transform: translateX($value);
->>>>>>> 87cf4821eb9fc34721dea82a37e51b1b929980cd
 }
 
 /* TRANSLATE Y */
 
 @mixin translate-y($value) {
-<<<<<<< HEAD
-  -webkit-transform: translate-y($value);
-  -ms-transform: translate-y($value);
-  transform: translate-y($value);
-=======
   -webkit-transform: translateY($value);
   -ms-transform: translateY($value);
   -o-transform: translateY($value);
   transform: translateY($value);
->>>>>>> 87cf4821eb9fc34721dea82a37e51b1b929980cd
 }
 
 /* TRANSITION SCALE-DOWN */
