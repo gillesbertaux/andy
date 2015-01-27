@@ -56,7 +56,6 @@ Additional default settings will be soon added.
 **Mixins availables:**
   - Background Gradient
   - Background Size
-  - Borders
   - Border Corners
   - Box Sizing
   - Center Block
@@ -65,10 +64,10 @@ Additional default settings will be soon added.
   - Div Outline
   - Font Face
   - Hardware Acceleration
-  - Hover
   - Image Retina
   - Line-Height
   - Media Queries
+  - Opacity
   - Opacity Black
   - Opacity White
   - Position
@@ -76,10 +75,11 @@ Additional default settings will be soon added.
   - Scale
   - Shadows
   - Size
-  - Text Shadow 
-  - TranslateX
-  - TranslateY
-  - Transitions
+  - Text Shadow
+  - Translate-x
+  - Translate-y
+  - Transition
+  - Transitions Snippets
 
 --------
 

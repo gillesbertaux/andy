@@ -11,7 +11,6 @@ The purpose of Andy is to gather useful mixins and avoid endless research or hea
 Mixins available:
   - Background Gradient
   - Background Size
-  - Borders
   - Border Corners
   - Box Sizing
   - Center Block
@@ -20,7 +19,6 @@ Mixins available:
   - Div Outline
   - Font Face
   - Hardware Acceleration
-  - Hover
   - Image Retina
   - Line-Height
   - Media Queries
@@ -33,9 +31,10 @@ Mixins available:
   - Shadows
   - Size
   - Text Shadow
-  - translate-x
-  - translate-y
-  - Transitions
+  - Translate-x
+  - Translate-y
+  - Transition
+  - Transitions Snippets
 
  ----------------------------------------------- */
 
@@ -92,12 +91,6 @@ $base-font-size: 16px !default;
   -webkit-background-size: $width $height;
           background-size: $width $height;
 }
-
-/* BORDER */
-
-// usage example: @include border(2px, solid, #000);
-
-@mixin border($thickness, $type, $color) { border: $thickness $type $color; }
 
 /* BORDER CORNERS */
 
