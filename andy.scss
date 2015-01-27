@@ -48,8 +48,8 @@ $base-font-size: 16px !default;
 
 @mixin background-gradient($startcolor, $endcolor, $orientation) {
     background: $startcolor;
-    @if $orientation == vertical {
-    // vertical
+
+    @if $orientation == 'vertical' {
       background: -moz-linear-gradient(top,  $startcolor 0%, $endcolor 100%);
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$startcolor), color-stop(100%,$endcolor));
       background: -webkit-linear-gradient(top,  $startcolor 0%,$endcolor 100%);
@@ -57,10 +57,7 @@ $base-font-size: 16px !default;
       background: -ms-linear-gradient(top,  $startcolor 0%,$endcolor 100%);
       background: linear-gradient(to bottom,  $startcolor 0%,$endcolor 100%);
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startcolor', endColorstr='$endcolor',GradientType=0 );
-    }
-    @else if $orientation == horizontal
-    {
-    // horizontal
+    } @else if $orientation == 'horizontal' {
       background: -moz-linear-gradient(left,  $startcolor 0%, $endcolor 100%);
       background: -webkit-gradient(linear, left top, right top, color-stop(0%,$startcolor), color-stop(100%,$endcolor));
       background: -webkit-linear-gradient(left,  $startcolor 0%,$endcolor 100%);
@@ -68,10 +65,7 @@ $base-font-size: 16px !default;
       background: -ms-linear-gradient(left,  $startcolor 0%,$endcolor 100%);
       background: linear-gradient(to right,  $startcolor 0%,$endcolor 100%);
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startcolor', endColorstr='$endcolor',GradientType=1 );
-    }
-    @else
-    {
-    // radial
+    } @else {
       background: -moz-radial-gradient(center, ellipse cover,  $startcolor 0%, $endcolor 100%);
       background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,$startcolor), color-stop(100%,$endcolor));
       background: -webkit-radial-gradient(center, ellipse cover,  $startcolor 0%,$endcolor 100%);
@@ -87,9 +81,9 @@ $base-font-size: 16px !default;
 // usage example: @include background-size(100%, 100%);
 
 @mixin background-size($width, $height) {
-     -moz-background-size: $width $height;
-  -webkit-background-size: $width $height;
-          background-size: $width $height;
+    -webkit-background-size: $width $height;
+    -moz-background-size: $width $height;
+    background-size: $width $height;
 }
 
 /* BORDER CORNERS */
@@ -97,20 +91,20 @@ $base-font-size: 16px !default;
 // usage example: @include border(100%, 100%, 0, 0);
 
 @mixin border-radius-separate($topLeftRadius, $topRightRadius, $bottomLeftRadius, $bottomRightRadius) {
-  -webkit-border-top-left-radius: $topLeftRadius;
-  -webkit-border-top-right-radius: $topRightRadius;
-  -webkit-border-bottom-right-radius: $bottomRightRadius;
-  -webkit-border-bottom-left-radius: $bottomLeftRadius;
+    -webkit-border-top-left-radius: $topLeftRadius;
+    -webkit-border-top-right-radius: $topRightRadius;
+    -webkit-border-bottom-right-radius: $bottomRightRadius;
+    -webkit-border-bottom-left-radius: $bottomLeftRadius;
 
-  -moz-border-radius-topleft: $topLeftRadius;
-  -moz-border-radius-topright: $topRightRadius;
-  -moz-border-radius-bottomright: $bottomRightRadius;
-  -moz-border-radius-bottomleft: $bottomLeftRadius;
+    -moz-border-radius-topleft: $topLeftRadius;
+    -moz-border-radius-topright: $topRightRadius;
+    -moz-border-radius-bottomright: $bottomRightRadius;
+    -moz-border-radius-bottomleft: $bottomLeftRadius;
 
-  border-top-left-radius: $topLeftRadius;
-  border-top-right-radius: $topRightRadius;
-  border-bottom-right-radius: $bottomRightRadius;
-  border-bottom-left-radius: $bottomLeftRadius;
+    border-top-left-radius: $topLeftRadius;
+    border-top-right-radius: $topRightRadius;
+    border-bottom-right-radius: $bottomRightRadius;
+    border-bottom-left-radius: $bottomLeftRadius;
 }
 
 /* BOX SIZING */
@@ -118,16 +112,16 @@ $base-font-size: 16px !default;
 // usage example: @include box-sizing(border-box);
 
 @mixin box-sizing($type) {
-  -moz-box-sizing:$type;
-  box-sizing:$type;
+    -moz-box-sizing: $type;
+    box-sizing: $type;
 }
 
 /* CENTER BLOCK */
 
 @mixin center-block {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* CENTERING BLOCKS ELEMENTS, HORIZONTAL, VERTICAL, BOTH */
@@ -135,48 +129,50 @@ $base-font-size: 16px !default;
 // Important: you must have a parent element with position: relative.
 
 @mixin center-both {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 // if height is defined.
 @mixin center-h($height) {
-  position: absolute;
-  top: 50%;
-  height: $height;
-  margin-top: -$height/2;
+    position: absolute;
+    top: 50%;
+    height: $height;
+    margin-top: -($height / 2);
 }
 
 // if height is unknown.
 @mixin center-h--unk {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 /* CLEARFIX */
 
 %clearfix {
-  *zoom: 1;
-  &:before, &:after {
-    content: " ";
-    display: table;
-  }
-  &:after {
-    clear: both;
-  }
+    *zoom: 1;
+
+    &:before, &:after {
+        content: ' ';
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
 }
 
 /* DIV OUTLINE */
 
 @mixin outline {
-  box-shadow: rgba(255, 255, 255, 0.5) 0 1px 0, inset rgba(0, 0, 0, 0.75) 0 1px 0;
+    box-shadow: rgba(255, 255, 255, 0.5) 0 1px 0, inset rgba(0, 0, 0, 0.75) 0 1px 0;
 }
 
 /* FONT FACES */
@@ -184,13 +180,13 @@ $base-font-size: 16px !default;
 // usage example: @include font-face(gotham,/fonts/gotham.eot,/fonts/gotham.woff,/fonts/gotham.ttf,/fonts/gotham.svg, 300, normal);
 
 @mixin font-face($fontFamily, $eotFileSrc, $woffFileSrc, $ttfFileSrc, $svgFileSrc, $weight, $style) {
-  font-family: $fontFamily;
-  src: url($eotFileSrc)  format('eot'),
-       url($woffFileSrc) format('woff'),
-       url($ttfFileSrc)  format('truetype'),
-       url($svgFileSrc)  format('svg');
-  font-weight: $weight;
-  font-style: $style;
+    font-family: $fontFamily;
+    src: url($eotFileSrc)  format('eot'),
+         url($woffFileSrc) format('woff'),
+         url($ttfFileSrc)  format('truetype'),
+         url($svgFileSrc)  format('svg');
+    font-weight: $weight;
+    font-style: $style;
 }
 
 /* FONT SIZE */
@@ -202,6 +198,7 @@ $base-font-size: 16px !default;
   @if (unitless($size)){
     $size: $size * 1px;
   }
+
   font-size: $size;
   font-size: ($size / $base-font-size) * 1rem;
 }
@@ -209,9 +206,9 @@ $base-font-size: 16px !default;
 /* HARDWARE ACCELERATION */
 
 @mixin ha {
-  -webkit-transform: translate3d(0,0,0);
-  -ms-transform: translate3d(0,0,0);
-  transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
 /* IMAGE RETINA */
@@ -219,15 +216,15 @@ $base-font-size: 16px !default;
 // usage example: @include image-2x(/img/image.png, 100%, auto);
 
 @mixin image-2x($image, $width, $height) {
-  @media (min--moz-device-pixel-ratio: 1.3),
-         (-o-min-device-pixel-ratio: 2.6/2),
-         (-webkit-min-device-pixel-ratio: 1.3),
-         (min-device-pixel-ratio: 1.3),
-         (min-resolution: 1.3dppx) {
-    /* on retina, use image that's scaled by 2 */
-    background-image: url($image);
-    background-size: $width $height;
-  }
+    @media (min--moz-device-pixel-ratio: 1.3),
+           (-o-min-device-pixel-ratio: 2.6/2),
+           (-webkit-min-device-pixel-ratio: 1.3),
+           (min-device-pixel-ratio: 1.3),
+           (min-resolution: 1.3dppx) {
+        /* on retina, use image that's scaled by 2 */
+        background-image: url($image);
+        background-size: $width $height;
+    }
 }
 
 /* LINE HEIGHT */
@@ -236,7 +233,7 @@ $base-font-size: 16px !default;
 
 @mixin line-height($heightValue: 12){
     line-height: $heightValue * 1px; //fallback for old browsers
-    line-height: ( 1 / ( $base-font-size / ($base-font-size * 0 + 1) ) * $heightValue * 1rem );
+    line-height: (1 / ($base-font-size / ($base-font-size * 0 + 1)) * $heightValue * 1rem);
 }
 
 /* MEDIA QUERIES */
@@ -244,35 +241,35 @@ $base-font-size: 16px !default;
 // usage example: @include mquery(350px, 2) { width: 100%; }
 
 @mixin mquery($width, $ratio: false) {
-  @if $ratio {
-      @media
-      only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
-      only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio),
-      only screen and (max-width: $width) and  (min-device-pixel-ratio: $ratio) {
-        @content;
-      }
-  } @else {
-      @media only screen and (max-width: $width) {
-        @content;
-      }
-  }
+    @if $ratio {
+        @media
+            only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
+            only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio),
+            only screen and (max-width: $width) and  (min-device-pixel-ratio: $ratio) {
+            @content;
+        }
+    } @else {
+        @media only screen and (max-width: $width) {
+            @content;
+        }
+    }
 }
 
 @mixin mquery-r($ratio) {
-  @media
-    only screen and (-webkit-min-device-pixel-ratio: $ratio),
-    only screen and (min--moz-device-pixel-ratio: $ratio),
-    only screen and (-o-min-device-pixel-ratio: $ratio),
-    only screen and (min-device-pixel-ratio: $ratio) {
-      @content;
-  }
+    @media
+        only screen and (-webkit-min-device-pixel-ratio: $ratio),
+        only screen and (min--moz-device-pixel-ratio: $ratio),
+        only screen and (-o-min-device-pixel-ratio: $ratio),
+        only screen and (min-device-pixel-ratio: $ratio) {
+        @content;
+    }
 }
 
 /* OPACITY */
 
 @mixin opacity($opacity) {
-  opacity: $opacity;
-  filter: alpha(opacity=($opacity * 100));
+    opacity: $opacity;
+    filter: alpha(opacity=($opacity * 100));
 }
 
 /* BLACK / WHITE OPACITY */
@@ -280,31 +277,31 @@ $base-font-size: 16px !default;
 // usage example: div { border: 1px solid black(.2); }
 
 @function black($opacity) {
-  @return rgba(0,0,0,$opacity);
+    @return rgba(0, 0, 0, $opacity);
 }
 
 @function white($opacity) {
-  @return rgba(255,255,255,$opacity);
+    @return rgba(255, 255, 255, $opacity);
 }
 
 /* POSITION */
 
 // usage example: @include position(absolute, 10px, null, 10px, 10px);
 
-@mixin position($type,$left,$right,$top,$bottom) {
-  position: $type;
-  left: $left;
-  right: $right;
-  top: $top;
-  bottom: $bottom;
+@mixin position($type, $left, $right, $top, $bottom) {
+    position: $type;
+    left: $left;
+    right: $right;
+    top: $top;
+    bottom: $bottom;
 }
 
 /* RADIUS */
 
 @mixin radius($radius) {
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
 }
 
 /* SCALE */
@@ -312,9 +309,9 @@ $base-font-size: 16px !default;
 // usage example: @include scale(2);
 
 @mixin scale($value) {
-  -ms-transform: scale($value);
-  -webkit-transform: scale($value);
-  transform: scale($value);
+    -webkit-transform: scale($value);
+    -ms-transform: scale($value);
+    transform: scale($value);
 }
 
 /* SHADOWS */
@@ -322,19 +319,18 @@ $base-font-size: 16px !default;
 // usage examples: @include shadow(black, 5px 5px 0px 3px);
 //             or: @include shadow(blue, 2px 3px 2px 2px, inset);
 
-@mixin shadow($color, $x-y-blur-spread:10px 10px 30px 0px, $inset:false) {
-  @if ($inset == inset) {
-      -moz-box-shadow: inset $x-y-blur-spread $color;
-      -webkit-box-shadow: inset $x-y-blur-spread $color;
-      -o-box-shadow: inset $x-y-blur-spread $color;
-      box-shadow: inset $x-y-blur-spread $color;
-  }
-  @else {
-      -moz-box-shadow: $x-y-blur-spread $color;
-      -webkit-box-shadow: $x-y-blur-spread $color;
-      -o-box-shadow: $x-y-blur-spread $color;
-      box-shadow: $x-y-blur-spread $color;
-  }
+@mixin shadow($color, $x-y-blur-spread: 10px 10px 30px 0px, $inset: false) {
+    @if $inset == 'inset' {
+        -moz-box-shadow: inset $x-y-blur-spread $color;
+        -webkit-box-shadow: inset $x-y-blur-spread $color;
+        -o-box-shadow: inset $x-y-blur-spread $color;
+        box-shadow: inset $x-y-blur-spread $color;
+    } @else {
+        -moz-box-shadow: $x-y-blur-spread $color;
+        -webkit-box-shadow: $x-y-blur-spread $color;
+        -o-box-shadow: $x-y-blur-spread $color;
+        box-shadow: $x-y-blur-spread $color;
+    }
 }
 
 /* SIZE */
@@ -342,32 +338,32 @@ $base-font-size: 16px !default;
 // usage example: @include size(350px, 350px);
 
 @mixin size($width, $height) {
-   width: $width;
-   height: $height;
+    width: $width;
+    height: $height;
 }
 
 /* TEXT SHADOW */
 
 @mixin text-shadow($value) {
-   text-shadow: rgba(255, 255, 255, $value) 0 1px 0;
+    text-shadow: rgba(255, 255, 255, $value) 0 1px 0;
 }
 
 /* TRANSLATE X */
 
 @mixin translate-x($value) {
-  -webkit-transform: translateX($value);
-  -ms-transform: translateX($value);
-  -o-transform: translateX($value);
-  transform: translateX($value);
+    -webkit-transform: translateX($value);
+    -ms-transform: translateX($value);
+    -o-transform: translateX($value);
+    transform: translateX($value);
 }
 
 /* TRANSLATE Y */
 
 @mixin translate-y($value) {
-  -webkit-transform: translateY($value);
-  -ms-transform: translateY($value);
-  -o-transform: translateY($value);
-  transform: translateY($value);
+    -webkit-transform: translateY($value);
+    -ms-transform: translateY($value);
+    -o-transform: translateY($value);
+    transform: translateY($value);
 }
 
 /* TRANSITION */
@@ -376,137 +372,137 @@ $base-font-size: 16px !default;
 //       or @include hover(.3s, ease-in);
 
 @mixin transition($time, $timing-function: ease-in-out) {
-  -webkit-transition: all $time $timing-function;
-  transition: all $time $timing-function;
+    -webkit-transition: all $time $timing-function;
+    transition: all $time $timing-function;
 }
 
 /* TRANSITION SCALE-DOWN */
 
-@mixin scale-down($time:1s) {
-  -webkit-animation: scale-down $time ease-out 1;
-  animation: scale-down $time ease-out 1;
+@mixin scale-down($time: 1s) {
+    -webkit-animation: scale-down $time ease-out 1;
+    animation: scale-down $time ease-out 1;
 }
 
 @keyframes scale-down {
-  0% { @include scale(1); }
-  50% { @include scale(.95); };
-  100% { @include scale(1); };
+    0% { @include scale(1); }
+    50% { @include scale(.95); };
+    100% { @include scale(1); };
 }
 
 @-webkit-keyframes scale-down {
-  0% { @include scale(1); }
-  50% { @include scale(.95); };
-  100% { @include scale(1); };
+    0% { @include scale(1); }
+    50% { @include scale(.95); };
+    100% { @include scale(1); };
 }
 
 /* TRANSITION SCALE UP HOVER */
 
-@mixin scale-up($time:1s) {
-  -webkit-animation: scale-up $time ease-in-out 1;
-  animation: scale-up $time ease-in-out 1;
+@mixin scale-up($time: 1s) {
+    -webkit-animation: scale-up $time ease-in-out 1;
+    animation: scale-up $time ease-in-out 1;
 }
 
 @keyframes scale-up {
-  0% { @include scale(1); }
-  50% { @include scale(1.1); };
-  100% { @include scale(1); };
+    0% { @include scale(1); }
+    50% { @include scale(1.1); };
+    100% { @include scale(1); };
 }
 
 @-webkit-keyframes scale-up {
-  0% { @include scale(1); }
-  50% { @include scale(1.1); };
-  100% { @include scale(1); };
+    0% { @include scale(1); }
+    50% { @include scale(1.1); };
+    100% { @include scale(1); };
 }
 
 /* TRANSITION FADE-IN */
 
-@mixin fade-in($time:1s) {
-  -webkit-animation: fade-in $time ease-out 1;
-  animation: fade-in $time ease-out 1;
+@mixin fade-in($time: 1s) {
+    -webkit-animation: fade-in $time ease-out 1;
+    animation: fade-in $time ease-out 1;
 }
 
 @keyframes fade-in {
-  0% { opacity: 0; }
-  to { opacity: 1; };
+    0% { opacity: 0; }
+    to { opacity: 1; };
 }
 
 @-webkit-keyframes fade-in {
-  0% { opacity: 0; }
-  to { opacity: 1; };
+    0% { opacity: 0; }
+    to { opacity: 1; };
 }
 
 /* TRANSITION SLIDE-IN-DOWN */
 
 @-webkit-keyframes slide-in-down {
-  0% { @include translate-y(-100px); opacity: 0; }
-  75% { @include translate-y(0); }
-  100% { opacity: 1; }
+    0% { @include translate-y(-100px); opacity: 0; }
+    75% { @include translate-y(0); }
+    100% { opacity: 1; }
 }
 
 @keyframes slide-in-down {
-  0% { @include translate-y(-100px); opacity: 0; }
-  75% { @include translate-y(0); }
-  100% { opacity: 1; }
+    0% { @include translate-y(-100px); opacity: 0; }
+    75% { @include translate-y(0); }
+    100% { opacity: 1; }
 }
 
 @mixin slide-in-down($time) {
-  animation: slide-in-down $time ease-in-out;
-  -webkit-animation: slide-in-down $time ease-in-out;
+    -webkit-animation: slide-in-down $time ease-in-out;
+    animation: slide-in-down $time ease-in-out;
 }
 
 /* TRANSITION SLIDE-IN-UP */
 
 @-webkit-keyframes slide-in-up {
-  0% { @include translate-y(100px); opacity: 0; }
-  75% { @include translate-y(0); }
-  100% { opacity: 1; }
+    0% { @include translate-y(100px); opacity: 0; }
+    75% { @include translate-y(0); }
+    100% { opacity: 1; }
 }
 
 @keyframes slide-in-up {
-  0% { @include translate-y(100px); opacity: 0; }
-  75% { @include translate-y(0); }
-  100% { opacity: 1; }
+    0% { @include translate-y(100px); opacity: 0; }
+    75% { @include translate-y(0); }
+    100% { opacity: 1; }
 }
 
 @mixin slide-in-up($time) {
-  animation: slide-in-up $time ease-in-out;
-  -webkit-animation: slide-in-up $time ease-in-out;
+    -webkit-animation: slide-in-up $time ease-in-out;
+    animation: slide-in-up $time ease-in-out;
 }
 
 /* TRANSITION SLIDE-IN-RIGHT */
 
 @-webkit-keyframes slide-in-right {
-  0% { @include translate-x(100px); opacity: 0; }
-  75% { @include translate-x(0); }
-  100% { opacity: 1; }
+    0% { @include translate-x(100px); opacity: 0; }
+    75% { @include translate-x(0); }
+    100% { opacity: 1; }
 }
 
 @keyframes slide-in-right {
-  0% { @include translate-x(100px); opacity: 0; }
-  75% { @include translate-x(0); }
-  100% { opacity: 1; }
+    0% { @include translate-x(100px); opacity: 0; }
+    75% { @include translate-x(0); }
+    100% { opacity: 1; }
 }
 
 @mixin slide-in-right($time) {
-  animation: slide-in-right $time ease-out backwards;
-  -webkit-animation: slide-in-right $time ease-out backwards;
+    -webkit-animation: slide-in-right $time ease-out backwards;
+    animation: slide-in-right $time ease-out backwards;
 }
 
 /* TRANSITION SLIDEINLEFT */
 
 @-webkit-keyframes slide-in-left {
-  0% { @include translate-x(-100px); opacity: 0; }
-  75% { @include translate-x(0); }
-  100% { opacity: 1; }
+    0% { @include translate-x(-100px); opacity: 0; }
+    75% { @include translate-x(0); }
+    100% { opacity: 1; }
 }
 
 @keyframes slide-in-left {
-  0% { @include translate-x(-100px); opacity: 0; }
-  75% { @include translate-x(0); }
-  100% { opacity: 1; }
+    0% { @include translate-x(-100px); opacity: 0; }
+    75% { @include translate-x(0); }
+    100% { opacity: 1; }
 }
 
 @mixin slide-in-left($time) {
-  animation: slide-in-left $time ease-out backwards;
-  -webkit-animation: slide-in-left $time ease-out backwards;
+    -webkit-animation: slide-in-left $time ease-out backwards;
+    animation: slide-in-left $time ease-out backwards;
 }
