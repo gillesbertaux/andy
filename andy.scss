@@ -76,10 +76,10 @@ $base-font-size: 16px !default;
 /// Background size helper
 /// @access public
 /// @param {Length} $width - Background width
-/// @param {Length} $height - Background height
+/// @param {Length} $height [$width] - Background height
 /// @example scss - Usage
 ///   .foo {
-///     @include background-size(100%, 100%);
+///     @include background-size(100%);
 ///   }
 /// @example scss - Result
 ///   .foo {
@@ -87,7 +87,7 @@ $base-font-size: 16px !default;
 ///     -moz-background-size: 100% 100%;
 ///     background-size: 100% 100%;
 ///   }
-@mixin background-size($width, $height) {
+@mixin background-size($width, $height: $width) {
     @include prefix(background-size, $width $height, 'webkit' 'moz');
 }
 
