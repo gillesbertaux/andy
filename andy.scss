@@ -483,12 +483,12 @@ $base-font-size: 16px !default;
 ///     top: 10px;
 ///     bottom: 10p;x
 ///   }
-@mixin position($type, $left, $right, $top, $bottom) {
+@mixin position($type, $top, $right, $bottom, $left) {
     position: $type;
-    left: $left;
-    right: $right;
     top: $top;
+    right: $right;
     bottom: $bottom;
+    left: $left;
 }
 
 
