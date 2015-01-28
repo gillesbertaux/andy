@@ -265,31 +265,23 @@ $base-font-size: 16px !default;
 
 /// Font-face helper mixin
 /// @access public
-/// @param {String} $font-family - Font family name
-/// @param {String} $EOT-file-src - EOT file source
-/// @param {String} $WOFF-file-src - WOFF file source
-/// @param {String} $TTF-file-src - TTF file source
-/// @param {String} $SVG-file-src - SVG file source
-/// @param {String | Number} $weight - Font weight
-/// @param {String} $style - Font style
+/// @param {String} $font-name - Font family name
+/// @param {String} $file-name - File name (no extension)
+/// @param {String | Number} $weight [normal] - Font weight
+/// @param {String} $style [normal] - Font style
 /// @example scss - Usage
-///   @include font-face(
-///     'gotham',
-///     '/fonts/gotham.eot',
-///     '/fonts/gotham.woff',
-///     '/fonts/gotham.ttf',
-///     '/fonts/gotham.svg',
-///     300,
-///     normal
-///   );
-@mixin font-face($font-family, $EOT-file-src, $WOFF-file-src, $TTF-file-src, $SVG-file-src, $weight, $style) {
-    font-family: $font-family;
-    src: url($EOT-file-src)  format('eot'),
-         url($WOFF-file-src) format('woff'),
-         url($TTF-file-src)  format('truetype'),
-         url($SVG-file-src)  format('svg');
+///   @include font-face('gotham', '/fonts/gotham');
+@mixin font-face($font-name, $file-name, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: quote($font-name);
+    src: url($file-name + '.eot');
+    src: url($file-name + '.eot?#iefix')  format('embedded-opentype'),
+         url($file-name + '.woff') format('woff'),
+         url($file-name + '.ttf')  format('truetype'),
+         url($file-name + '.svg##{$font-name}')  format('svg');
     font-weight: $weight;
     font-style: $style;
+  }
 }
 
 
