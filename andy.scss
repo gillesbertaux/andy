@@ -1,48 +1,25 @@
-/* -----------------------------------------------
+////
+/// Andy.SCSS: Open-Source Collection of Useful SASS Mixins Library.
+/// URL: http://gillesbertaux.com/andy$
+/// Repository: https://github.com/gillesbertaux/andy
+/// By: Gilles Bertaux | http://gillesbertaux.com | @gillesbertaux
+/// The purpose of Andy is to gather useful mixins and avoid endless research
+/// or heavy framework use. Feel free to fork it on Github and add your own mixins:
+////
 
-Andy.SCSS: Open-Source Collection of Useful SASS Mixins Library.
 
-URL: http://gillesbertaux.com/andy
-
-By: Gilles Bertaux | http://gillesbertaux.com | @gillesbertaux
-
-The purpose of Andy is to gather useful mixins and avoid endless research or heavy framework use. Feel free to fork it on Github and add your own mixins: https://github.com/gillesbertaux/andy
-
-Mixins available:
-  - Background Gradient
-  - Background Size
-  - Border Corners
-  - Box Sizing
-  - Center Block
-  - Centering Block: Horizontal, Vertical, Both
-  - Clearfix
-  - Div Outline
-  - Font Face
-  - Hardware Acceleration
-  - Image Retina
-  - Line-Height
-  - Media Queries
-  - Opacity
-  - Opacity Black
-  - Opacity White
-  - Position
-  - Radius
-  - Scale
-  - Shadows
-  - Size
-  - Text Shadow
-  - Translate-x
-  - Translate-y
-  - Transition
-  - Transitions Snippets
-
- ----------------------------------------------- */
-
-/* ANDY SETTINGS */
-
+/// Base font size for Andy
+/// @access public
+/// @type Length
 $base-font-size: 16px !default;
 
 
+/// Mixin helper to output vendor prefixes
+/// @access private
+/// @author HugoGiraudel
+/// @param {String} $property - Unprefixed CSS property
+/// @param {*} $value - Raw CSS value
+/// @param {List} $prefixes [()] - List of prefixes to output
 @mixin prefix($property, $value, $prefixes: ()) {
   @each $prefix in $prefixes {
     -#{$prefix}-#{$property}: $value;
@@ -51,6 +28,10 @@ $base-font-size: 16px !default;
   #{$property}: $value;
 }
 
+
+/// Mixin helper to prefix `@keyframes`
+/// @access private
+/// @param {String} $name - Animation name
 @mixin keyframes($name) {
     @-webkit-keyframes #{$name} {
         @content;
@@ -62,37 +43,80 @@ $base-font-size: 16px !default;
 }
 
 
-/* BACKGROUND GRADIENTS */
-
-// usage example: @include background-gradient(red, black, vertical)
-
+/// Background gradient helper
+/// @access public
+/// @param {Color} $startcolor - Start color
+/// @param {Color} $endcolor - End color
+/// @param {String} $orientation - Type of gradient, either `vertical`, `horizontal` or `radial`
+/// @example scss - Usage
+///   .foo {
+///     @include background-gradient(red, black, 'vertical');
+///   }
+/// @example css - Result
+///   .foo {
+///     background: -webkit-linear-gradient(top, red, black);
+///     background: linear-gradient(to bottom, red, black);
+///   }
 @mixin background-gradient($startcolor, $endcolor, $orientation) {
     background: $startcolor;
 
     @if $orientation == 'vertical' {
-      background: -webkit-linear-gradient(top,  $startcolor 0%,$endcolor 100%);
-      background: linear-gradient(to bottom,  $startcolor 0%,$endcolor 100%);
+      background: -webkit-linear-gradient(top, $startcolor, $endcolor);
+      background: linear-gradient(to bottom, $startcolor, $endcolor);
     } @else if $orientation == 'horizontal' {
-      background: -webkit-linear-gradient(left,  $startcolor 0%,$endcolor 100%);
-      background: linear-gradient(to right,  $startcolor 0%,$endcolor 100%);
+      background: -webkit-linear-gradient(left, $startcolor, $endcolor);
+      background: linear-gradient(to right, $startcolor, $endcolor);
     } @else {
-      background: -webkit-radial-gradient(center, ellipse cover,  $startcolor 0%,$endcolor 100%);
-      background: radial-gradient(ellipse at center,  $startcolor 0%,$endcolor 100%);
+      background: -webkit-radial-gradient(center, ellipse cover, $startcolor, $endcolor);
+      background: radial-gradient(ellipse at center, $startcolor, $endcolor);
     }
 }
 
-/* BACKGROUND SIZE */
 
-// usage example: @include background-size(100%, 100%);
-
+/// Background size helper
+/// @access public
+/// @param {Length} $width - Background width
+/// @param {Length} $height - Background height
+/// @example scss - Usage
+///   .foo {
+///     @include background-size(100%, 100%);
+///   }
+/// @example scss - Result
+///   .foo {
+///     -webkit-background-size: 100% 100%;
+///     -moz-background-size: 100% 100%;
+///     background-size: 100% 100%;
+///   }
 @mixin background-size($width, $height) {
     @include prefix(background-size, $width $height, 'webkit' 'moz');
 }
 
-/* BORDER CORNERS */
 
-// usage example: @include border(100%, 100%, 0, 0);
-
+/// Separated border-radius helpers
+/// @access public
+/// @param {Length} $topLeftRadius - Top left radius
+/// @param {Length} $topRightRadius - Top right radius
+/// @param {Length} $bottomLeftRadius - Bottom left radius
+/// @param {Length} $bottomRightRadius - Bottom right radius
+/// @example scss - Usage
+///   .foo {
+///     @include border-radius-separate(1px, 2px, 3px, 4px);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-border-top-left-radius: 1px;
+///     -moz-border-top-left-radius: 1px;
+///     border-top-left-radius: 1px;
+///     -webkit-border-top-right-radius: 2px;
+///     -moz-border-top-right-radius: 2px;
+///     border-top-right-radius: 2px;
+///     -webkit-border-bottom-right-radius: 3px;
+///     -moz-border-bottom-right-radius: 3px;
+///     border-bottom-right-radius: 3px;
+///     -webkit-border-bottom-left-radius: 4px;
+///     -moz-border-bottom-left-radius: 4px;
+///     border-bottom-left-radius: 4px;
+///   }
 @mixin border-radius-separate($topLeftRadius, $topRightRadius, $bottomLeftRadius, $bottomRightRadius) {
     @include prefix(border-top-left-radius, $topLeftRadius, 'webkit' 'moz');
     @include prefix(border-top-right-radius, $topRightRadius, 'webkit' 'moz');
@@ -100,26 +124,59 @@ $base-font-size: 16px !default;
     @include prefix(border-bottom-left-radius, $bottomLeftRadius, 'webkit' 'moz');
 }
 
-/* BOX SIZING */
 
-// usage example: @include box-sizing(border-box);
-
+/// Box-sizing helper
+/// @access public
+/// @param {String} $type - Either `border-box`, `padding-box` or `content-box`
+/// @example scss - Usage
+///   .foo {
+///     @include box-sizing(border-box);
+///   }
+/// @example css - Result
+///   .foo {
+///     -moz-box-sizing: border-box;
+///     box-sizing: border-box;
+///   }
 @mixin box-sizing($type) {
     @include prefix(box-sizing, $type, 'moz');
 }
 
-/* CENTER BLOCK */
 
+/// Block horizontal centering helper
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @include center-block;
+///   }
+/// @example css - Result
+///   .foo {
+///     display: block;
+///     margin-left: auto;
+///     margin-right: auto;
+///   }
 @mixin center-block {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* CENTERING BLOCKS ELEMENTS, HORIZONTAL, VERTICAL, BOTH */
 
-// Important: you must have a parent element with position: relative.
-
+/// Block horizontal and vertical centering helper
+/// Important: you must have a parent element with `position: relative`.
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @include center-both;
+///   }
+/// @example css - Result
+///   .foo {
+///     position: absolute;
+///     top: 50%;
+///     left: 50%;
+///     -webkit-transform: translate(-50%, -50%);
+///     -ms-transform: translate(-50%, -50%);
+///     transform: translate(-50%, -50%);
+///   }
 @mixin center-both {
     position: absolute;
     top: 50%;
@@ -127,7 +184,22 @@ $base-font-size: 16px !default;
     @include prefix(transform, translate(-50%, -50%), 'webkit' 'ms');
 }
 
-// if height is defined.
+
+/// Block vertical centering helper
+/// Require height to be known.
+/// @access public
+/// @param {Length} $height - Element's height
+/// @example scss - Usage
+///   .foo {
+///     @include center-h(42px);
+///   }
+/// @example css - Result
+///   .foo {
+///     position: absolute;
+///     top: 50%;
+///     height: 42px;
+///     margin-top: -21px;
+///   }
 @mixin center-h($height) {
     position: absolute;
     top: 50%;
@@ -135,15 +207,33 @@ $base-font-size: 16px !default;
     margin-top: -($height / 2);
 }
 
-// if height is unknown.
+/// Block vertical centering helper
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @include center-h--unk;
+///   }
+/// @example css - Result
+///   .foo {
+///     position: relative;
+///     top: 50%;
+///     -webkit-transform: translateY(-50%);
+///     -ms-transform: translateY(-50%);
+///     transform: translateY(-50%);
+///   }
 @mixin center-h--unk {
     position: relative;
     top: 50%;
     @include prefix(transform, translateY(-50%), 'webkit' 'ms');
 }
 
-/* CLEARFIX */
 
+/// Clearfix placeholder
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @extend %clearfix;
+///   }
 %clearfix {
     *zoom: 1;
 
@@ -157,16 +247,40 @@ $base-font-size: 16px !default;
     }
 }
 
-/* DIV OUTLINE */
 
+/// Outline
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @include outline;
+///   }
+/// @example css - Result
+///   .foo {
+///     box-shadow: rgba(255, 255, 255, 0.5) 0 1px 0, inset rgba(0, 0, 0, 0.75) 0 1px 0;
+///   }
 @mixin outline {
     box-shadow: rgba(255, 255, 255, 0.5) 0 1px 0, inset rgba(0, 0, 0, 0.75) 0 1px 0;
 }
 
-/* FONT FACES */
 
-// usage example: @include font-face(gotham,/fonts/gotham.eot,/fonts/gotham.woff,/fonts/gotham.ttf,/fonts/gotham.svg, 300, normal);
-
+/// Font-face helper mixin
+/// @access public
+/// @param {String} $fontFamily - Font family name
+/// @param {String} $eotFileSrc - EOT file source
+/// @param {String} $woffFileSrc - WOFF file source
+/// @param {String} $svgFileSrc - SVG file source
+/// @param {String | Number} $weight - Font weight
+/// @param {String} $style - Font style
+/// @example scss - Usage
+///   @include font-face(
+///     'gotham',
+///     '/fonts/gotham.eot',
+///     '/fonts/gotham.woff',
+///     '/fonts/gotham.ttf',
+///     '/fonts/gotham.svg',
+///     300,
+///     normal
+///   );
 @mixin font-face($fontFamily, $eotFileSrc, $woffFileSrc, $ttfFileSrc, $svgFileSrc, $weight, $style) {
     font-family: $fontFamily;
     src: url($eotFileSrc)  format('eot'),
@@ -177,13 +291,21 @@ $base-font-size: 16px !default;
     font-style: $style;
 }
 
-/* FONT SIZE */
 
-// usage example: @include fontsize(16px);
-//            or: @include fontsize(16);
-
+/// Font sizing helper
+/// @access public
+/// @param {Length} $size - Font size
+/// @example scss - Usage
+///   .foo {
+///     @include font-size(16px);
+///   }
+/// @example css - Result
+///   .foo {
+///     font-size: 16px;
+///     font-size: 1rem;
+///   }
 @mixin font-size($size) {
-  @if (unitless($size)){
+  @if unitless($size) {
     $size: $size * 1px;
   }
 
@@ -191,16 +313,33 @@ $base-font-size: 16px !default;
   font-size: ($size / $base-font-size) * 1rem;
 }
 
-/* HARDWARE ACCELERATION */
 
+/// Hardware acceleration
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @include ha;
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-transform: translate3d(0, 0, 0);
+///     -moz-transform: translate3d(0, 0, 0);
+///     transform: translate3d(0, 0, 0);
+///   }
 @mixin ha {
     @include prefix(transform, translate3d(0, 0, 0), 'webkit' 'ms');
 }
 
-/* IMAGE RETINA */
 
-// usage example: @include image-2x(/img/image.png, 100%, auto);
-
+/// Retina helper
+/// @access public
+/// @param {String} $image - Image path
+/// @param {Length} $width - Image width
+/// @param {Height} $height - Image height
+/// @example scss - Usage
+///   .foo {
+///     @include image-2x('../images/image.png', 100%, auto);
+///   }
 @mixin image-2x($image, $width, $height) {
     @media (min--moz-device-pixel-ratio: 1.3),
            (-o-min-device-pixel-ratio: 2.6/2),
@@ -213,19 +352,35 @@ $base-font-size: 16px !default;
     }
 }
 
-/* LINE HEIGHT */
 
-// usage example: @include line-height(16);
-
-@mixin line-height($heightValue: 12){
+/// Line height helper
+/// @access public
+/// @param {Number} $heightValue [12] - Height value
+/// @example scss - Usage
+///   .foo {
+///     @include line-height(16);
+///   }
+/// @example css - Result
+///   .foo {
+///     line-height: 16px;
+///     line-height: 1rem;
+///   }
+@mixin line-height($heightValue: 12) {
     line-height: $heightValue * 1px; //fallback for old browsers
     line-height: (1 / ($base-font-size / ($base-font-size * 0 + 1)) * $heightValue * 1rem);
 }
 
-/* MEDIA QUERIES */
 
-// usage example: @include mquery(350px, 2) { width: 100%; }
-
+/// Max-width media query helper
+/// @access public
+/// @param {Length} $width - Max-width
+/// @param {Number | False} $ratio [false] - Min device pixel ratio
+/// @example scss - Usage
+///   .foo {
+///     @include mquery(350px, 2) {
+///       width: 100%;
+///     }
+///   }
 @mixin mquery($width, $ratio: false) {
     @if $ratio {
         @media
@@ -241,6 +396,16 @@ $base-font-size: 16px !default;
     }
 }
 
+
+/// Min ratio media query helper
+/// @access public
+/// @param {Number} $ratio - Min device pixel ratio
+/// @example scss - Usage
+///   .foo {
+///     @include mquery-r(2) {
+///       width: 100%;
+///     }
+///   }
 @mixin mquery-r($ratio) {
     @media
         only screen and (-webkit-min-device-pixel-ratio: $ratio),
@@ -251,29 +416,75 @@ $base-font-size: 16px !default;
     }
 }
 
-/* OPACITY */
 
+/// Opacity helper
+/// @access public
+/// @param {Float} $opacity - Opacity
+/// @example scss - Usage
+///   .foo {
+///     @include opacity(0.5);
+///   }
+/// @example css - Result
+///   .foo {
+///     opacity: 0.5;
+///     filter: alpha(opacity=50);
+///   }
 @mixin opacity($opacity) {
     opacity: $opacity;
     filter: alpha(opacity=($opacity * 100));
 }
 
-/* BLACK / WHITE OPACITY */
 
-// usage example: div { border: 1px solid black(.2); }
-
+/// Transparent black helper
+/// @access public
+/// @param {Float} $opacity - Opacity
+/// @example scss - Usage
+///   .foo {
+///     border-color: black(0.1);
+///   }
+/// @example css - Result
+///   .foo {
+///     border-color: rgba(0, 0, 0, 0.1);
+///   }
 @function black($opacity) {
     @return rgba(0, 0, 0, $opacity);
 }
 
+
+/// Transparent white helper
+/// @access public
+/// @param {Float} $opacity - Opacity
+/// @example scss - Usage
+///   .foo {
+///     border-color: white(0.1);
+///   }
+/// @example css - Result
+///   .foo {
+///     border-color: rgba(255, 255, 255, 0.1);
+///   }
 @function white($opacity) {
     @return rgba(255, 255, 255, $opacity);
 }
 
-/* POSITION */
 
-// usage example: @include position(absolute, 10px, null, 10px, 10px);
-
+/// Position helper
+/// @access public
+/// @param {String} $type - Either `relative`, `absolute` or `fixed`
+/// @param {Length} $left - Left offset
+/// @param {Length} $right - Right offset
+/// @param {Length} $top - Top offset
+/// @param {Length} $bottom - Bottom offset
+/// @example scss - Usage
+///   .foo {
+///     @include position(absolute, 10px, null, 10px, 10px);
+///   }
+/// @example css - Result
+///   .foo {
+///     position: absolute;
+///     left: 10px;
+///     top: 10px;
+///     bottom: 10p;x
+///   }
 @mixin position($type, $left, $right, $top, $bottom) {
     position: $type;
     left: $left;
@@ -282,129 +493,316 @@ $base-font-size: 16px !default;
     bottom: $bottom;
 }
 
-/* SCALE */
 
-// usage example: @include scale(2);
-
+/// Scale helper
+/// @access public
+/// @param {Number} $value - Scale factor
+/// @example scss - Usage
+///   .foo {
+///     @include scale(2);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-transform: scale(2);
+///     -moz-transform: scale(2);
+///     transform: scale(2);
+///   }
 @mixin scale($value) {
     @include prefix(transform, scale($value), 'webkit' 'ms');
 }
 
-/* SIZE */
 
-// usage example: @include size(350px, 350px);
-
+/// Sizing helper
+/// @access public
+/// @param {Length} $width - Width
+/// @param {Length} $height - Height
+/// @example scss - Usage
+///   .foo {
+///     @include size(350px, 350px);
+///   }
+/// @example css - Result
+///   .foo {
+///     width: 350px;
+///     height: 350px;
+///   }
 @mixin size($width, $height) {
     width: $width;
     height: $height;
 }
 
-/* TEXT SHADOW */
 
+/// Embossing text shadow
+/// @access public
+/// @param {Float} $value - Opacity value
+/// @example scss - Usage
+///   .foo {
+///     @include text-shadow(0.5);
+///   }
+/// @example css - Result
+///   .foo {
+///     text-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
+///   }
 @mixin text-shadow($value) {
     text-shadow: rgba(255, 255, 255, $value) 0 1px 0;
 }
 
-/* TRANSLATE X */
 
+/// Translate x helper
+/// @access public
+/// @param {Length} $value - Offset value
+/// @example scss - Usage
+///   .foo {
+///     @include translate-x(1em);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-transform: translatex(1em);
+///     -moz-transform: translatex(1em);
+///     transform: translatex(1em);
+///   }
 @mixin translate-x($value) {
     @include prefix(transform, translateX($value), 'webkit' 'ms');
 }
 
-/* TRANSLATE Y */
 
+/// Translate y helper
+/// @access public
+/// @param {Length} $value - Offset value
+/// @example scss - Usage
+///   .foo {
+///     @include translate-y(1em);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-transform: translatey(1em);
+///     -moz-transform: translatey(1em);
+///     transform: translatey(1em);
+///   }
 @mixin translate-y($value) {
     @include prefix(transform, translateY($value), 'webkit' 'ms');
 }
 
-/* TRANSITION */
 
-// usage example: @include hover(.3s);
-//       or @include hover(.3s, ease-in);
-
-@mixin transition($time, $timing-function: ease-in-out) {
+/// Transition helper
+/// @param {Time} $time [1s] - Duration
+/// @param {String} $timing-function [ease-in-out] - Timing function or cubic bezier curve
+/// @example scss - Usage
+///   .foo {
+///     @include transition(0.3s, ease-in);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-transition: all 0.3s ease-in;
+///     transition: all 0.3s ease-in;
+///   }
+@mixin transition($time: 1s, $timing-function: ease-in-out) {
     @include prefix(transition, all $time $timing-function, 'webkit');
 }
 
-/* TRANSITION SCALE-DOWN */
 
-@include keyframes('scale-down') {
-    0% { @include scale(1); }
-    50% { @include scale(.95); };
-    100% { @include scale(1); };
-}
-
+/// Animation scale-down
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include scale-down(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: scale-down 4.2s ease-out backwards;
+///     animation: scale-down 4.2s ease-out backwards;
+///   }
 @mixin scale-down($time: 1s) {
     @include prefix(animation, scale-down $time ease-out 1, 'webkit');
 }
 
-/* TRANSITION SCALE UP HOVER */
+@include keyframes('scale-down') {
+    from, to {
+        @include scale(1);
+    }
 
-@include keyframes('scale-up') {
-    0% { @include scale(1); }
-    50% { @include scale(1.1); };
-    100% { @include scale(1); };
+    50% {
+        @include scale(.95);
+    }
 }
 
+
+/// Animation scale-up
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include scale-up(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: scale-up 4.2s ease-out backwards;
+///     animation: scale-up 4.2s ease-out backwards;
+///   }
 @mixin scale-up($time: 1s) {
     @include prefix(animation, scale-up $time ease-in-out 1, 'webkit');
 }
 
-/* TRANSITION FADE-IN */
+@include keyframes('scale-up') {
+    from, to {
+        @include scale(1);
+    }
 
-@include keyframes('fade-in') {
-    0% { opacity: 0; }
-    to { opacity: 1; };
+    50% {
+        @include scale(1.1);
+    }
 }
 
+
+/// Animation fade-in
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include fade-in(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: fade-in 4.2s ease-out backwards;
+///     animation: fade-in 4.2s ease-out backwards;
+///   }
 @mixin fade-in($time: 1s) {
     @include prefix(animation, fade-in $time ease-out 1, 'webkit');
 }
 
-/* TRANSITION SLIDE-IN-DOWN */
+@include keyframes('fade-in') {
+    from {
+        opacity: 0;
+    }
 
-@include keyframes('slide-in-down') {
-    0% { @include translate-y(-100px); opacity: 0; }
-    75% { @include translate-y(0); }
-    100% { opacity: 1; }
+    to {
+        opacity: 1;
+    };
 }
 
-@mixin slide-in-down($time) {
+
+/// Animation slide-in-down
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include slide-in-down(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: slide-in-down 4.2s ease-out backwards;
+///     animation: slide-in-down 4.2s ease-out backwards;
+///   }
+@mixin slide-in-down($time: 1s) {
     @include prefix(animation, slide-in-down $time ease-in-out, 'webkit');
 }
 
-/* TRANSITION SLIDE-IN-UP */
+@include keyframes('slide-in-down') {
+    from {
+        @include translate-y(-100px); opacity: 0;
+    }
 
-@include keyframes('slide-in-up') {
-    0% { @include translate-y(100px); opacity: 0; }
-    75% { @include translate-y(0); }
-    100% { opacity: 1; }
+    75% {
+        @include translate-y(0);
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-@mixin slide-in-up($time) {
+
+/// Animation slide-in-up
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include slide-in-up(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: slide-in-up 4.2s ease-out backwards;
+///     animation: slide-in-up 4.2s ease-out backwards;
+///   }
+@mixin slide-in-up($time: 1s) {
     @include prefix(animation, slide-in-up $time ease-in-out, 'webkit');
 }
 
-/* TRANSITION SLIDE-IN-RIGHT */
+@include keyframes('slide-in-up') {
+    from {
+        @include translate-y(100px);
+        opacity: 0;
+    }
 
-@include keyframes('slide-in-right') {
-    0% { @include translate-x(100px); opacity: 0; }
-    75% { @include translate-x(0); }
-    100% { opacity: 1; }
+    75% {
+        @include translate-y(0);
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-@mixin slide-in-right($time) {
+
+/// Animation slide-in-right
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include slide-in-right(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: slide-in-right 4.2s ease-out backwards;
+///     animation: slide-in-right 4.2s ease-out backwards;
+///   }
+@mixin slide-in-right($time: 1s) {
     @include prefix(animation, slide-in-right $time ease-out backwards, 'webkit');
 }
 
-/* TRANSITION SLIDEINLEFT */
+@include keyframes('slide-in-right') {
+    from {
+        @include translate-x(100px);
+        opacity: 0;
+    }
 
-@include keyframes('slide-in-left') {
-    0% { @include translate-x(-100px); opacity: 0; }
-    75% { @include translate-x(0); }
-    100% { opacity: 1; }
+    75% {
+        @include translate-x(0);
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-@mixin slide-in-left($time) {
+
+/// Animation slide-in-left
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include slide-in-left(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: slide-in-left 4.2s ease-out backwards;
+///     animation: slide-in-left 4.2s ease-out backwards;
+///   }
+@mixin slide-in-left($time: 1s) {
     @include prefix(animation, slide-in-left $time ease-out backwards, 'webkit');
+}
+
+@include keyframes('slide-in-left') {
+    from {
+        @include translate-x(-100px);
+        opacity: 0;
+    }
+
+    75% {
+        @include translate-x(0);
+    }
+
+    to {
+        opacity: 1;
+    }
 }
