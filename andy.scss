@@ -426,11 +426,11 @@ $base-font-size: 16px !default;
 /// @example css - Result
 ///   .foo {
 ///     opacity: 0.5;
-///     filter: alpha(opacity=50);
+///     filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#50)";
 ///   }
 @mixin opacity($opacity) {
     opacity: $opacity;
-    filter: alpha(opacity=($opacity * 100));
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 100})";
 }
 
 
