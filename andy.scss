@@ -76,10 +76,10 @@ $base-font-size: 16px !default;
 /// Background size helper
 /// @access public
 /// @param {Length} $width - Background width
-/// @param {Length} $height - Background height
+/// @param {Length} $height [$width] - Background height
 /// @example scss - Usage
 ///   .foo {
-///     @include background-size(100%, 100%);
+///     @include background-size(100%);
 ///   }
 /// @example scss - Result
 ///   .foo {
@@ -87,7 +87,7 @@ $base-font-size: 16px !default;
 ///     -moz-background-size: 100% 100%;
 ///     background-size: 100% 100%;
 ///   }
-@mixin background-size($width, $height) {
+@mixin background-size($width, $height: $width) {
     @include prefix(background-size, $width $height, 'webkit' 'moz');
 }
 
@@ -265,31 +265,23 @@ $base-font-size: 16px !default;
 
 /// Font-face helper mixin
 /// @access public
-/// @param {String} $font-family - Font family name
-/// @param {String} $EOT-file-src - EOT file source
-/// @param {String} $WOFF-file-src - WOFF file source
-/// @param {String} $TTF-file-src - TTF file source
-/// @param {String} $SVG-file-src - SVG file source
-/// @param {String | Number} $weight - Font weight
-/// @param {String} $style - Font style
+/// @param {String} $font-name - Font family name
+/// @param {String} $file-name - File name (no extension)
+/// @param {String | Number} $weight [normal] - Font weight
+/// @param {String} $style [normal] - Font style
 /// @example scss - Usage
-///   @include font-face(
-///     'gotham',
-///     '/fonts/gotham.eot',
-///     '/fonts/gotham.woff',
-///     '/fonts/gotham.ttf',
-///     '/fonts/gotham.svg',
-///     300,
-///     normal
-///   );
-@mixin font-face($font-family, $EOT-file-src, $WOFF-file-src, $TTF-file-src, $SVG-file-src, $weight, $style) {
-    font-family: $font-family;
-    src: url($EOT-file-src)  format('eot'),
-         url($WOFF-file-src) format('woff'),
-         url($TTF-file-src)  format('truetype'),
-         url($SVG-file-src)  format('svg');
+///   @include font-face('gotham', '/fonts/gotham');
+@mixin font-face($font-name, $file-name, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: quote($font-name);
+    src: url($file-name + '.eot');
+    src: url($file-name + '.eot?#iefix')  format('embedded-opentype'),
+         url($file-name + '.woff') format('woff'),
+         url($file-name + '.ttf')  format('truetype'),
+         url($file-name + '.svg##{$font-name}')  format('svg');
     font-weight: $weight;
     font-style: $style;
+  }
 }
 
 
@@ -426,11 +418,11 @@ $base-font-size: 16px !default;
 /// @example css - Result
 ///   .foo {
 ///     opacity: 0.5;
-///     filter: alpha(opacity=50);
+///     filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#50)";
 ///   }
 @mixin opacity($opacity) {
     opacity: $opacity;
-    filter: alpha(opacity=($opacity * 100));
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 100})";
 }
 
 
@@ -469,22 +461,21 @@ $base-font-size: 16px !default;
 /// Position helper
 /// @access public
 /// @param {String} $type - Either `relative`, `absolute` or `fixed`
-/// @param {Length} $left - Left offset
-/// @param {Length} $right - Right offset
-/// @param {Length} $top - Top offset
-/// @param {Length} $bottom - Bottom offset
+/// @param {Length} $left [null] - Left offset
+/// @param {Length} $right [null] - Right offset
+/// @param {Length} $top [null] - Top offset
+/// @param {Length} $bottom [null] - Bottom offset
 /// @example scss - Usage
 ///   .foo {
-///     @include position(absolute, 10px, null, 10px, 10px);
+///     @include position(absolute, $top: 10px, $left: 10px);
 ///   }
 /// @example css - Result
 ///   .foo {
 ///     position: absolute;
 ///     left: 10px;
 ///     top: 10px;
-///     bottom: 10p;x
 ///   }
-@mixin position($type, $top, $right, $bottom, $left) {
+@mixin position($type, $top: null, $right: null, $bottom: null, $left: null) {
     position: $type;
     top: $top;
     right: $right;
@@ -514,17 +505,17 @@ $base-font-size: 16px !default;
 /// Sizing helper
 /// @access public
 /// @param {Length} $width - Width
-/// @param {Length} $height - Height
+/// @param {Length} $height [$width] - Height
 /// @example scss - Usage
 ///   .foo {
-///     @include size(350px, 350px);
+///     @include size(350px);
 ///   }
 /// @example css - Result
 ///   .foo {
 ///     width: 350px;
 ///     height: 350px;
 ///   }
-@mixin size($width, $height) {
+@mixin size($width, $height: $width) {
     width: $width;
     height: $height;
 }
