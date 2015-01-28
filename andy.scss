@@ -45,8 +45,8 @@ $base-font-size: 16px !default;
 
 /// Background gradient helper
 /// @access public
-/// @param {Color} $startcolor - Start color
-/// @param {Color} $endcolor - End color
+/// @param {Color} $start-color - Start color
+/// @param {Color} $end-color - End color
 /// @param {String} $orientation - Type of gradient, either `vertical`, `horizontal` or `radial`
 /// @example scss - Usage
 ///   .foo {
@@ -57,18 +57,18 @@ $base-font-size: 16px !default;
 ///     background: -webkit-linear-gradient(top, red, black);
 ///     background: linear-gradient(to bottom, red, black);
 ///   }
-@mixin background-gradient($startcolor, $endcolor, $orientation) {
-    background: $startcolor;
+@mixin background-gradient($start-color, $end-color, $orientation) {
+    background: $start-color;
 
     @if $orientation == 'vertical' {
-      background: -webkit-linear-gradient(top, $startcolor, $endcolor);
-      background: linear-gradient(to bottom, $startcolor, $endcolor);
+      background: -webkit-linear-gradient(top, $start-color, $end-color);
+      background: linear-gradient(to bottom, $start-color, $end-color);
     } @else if $orientation == 'horizontal' {
-      background: -webkit-linear-gradient(left, $startcolor, $endcolor);
-      background: linear-gradient(to right, $startcolor, $endcolor);
+      background: -webkit-linear-gradient(left, $start-color, $end-color);
+      background: linear-gradient(to right, $start-color, $end-color);
     } @else {
-      background: -webkit-radial-gradient(center, ellipse cover, $startcolor, $endcolor);
-      background: radial-gradient(ellipse at center, $startcolor, $endcolor);
+      background: -webkit-radial-gradient(center, ellipse cover, $start-color, $end-color);
+      background: radial-gradient(ellipse at center, $start-color, $end-color);
     }
 }
 
@@ -94,10 +94,10 @@ $base-font-size: 16px !default;
 
 /// Separated border-radius helpers
 /// @access public
-/// @param {Length} $topLeftRadius - Top left radius
-/// @param {Length} $topRightRadius - Top right radius
-/// @param {Length} $bottomLeftRadius - Bottom left radius
-/// @param {Length} $bottomRightRadius - Bottom right radius
+/// @param {Length} $top-left-radius - Top left radius
+/// @param {Length} $top-right-radius - Top right radius
+/// @param {Length} $bottom-left-radius - Bottom left radius
+/// @param {Length} $bottom-right-radius - Bottom right radius
 /// @example scss - Usage
 ///   .foo {
 ///     @include border-radius-separate(1px, 2px, 3px, 4px);
@@ -117,11 +117,11 @@ $base-font-size: 16px !default;
 ///     -moz-border-bottom-left-radius: 4px;
 ///     border-bottom-left-radius: 4px;
 ///   }
-@mixin border-radius-separate($topLeftRadius, $topRightRadius, $bottomLeftRadius, $bottomRightRadius) {
-    @include prefix(border-top-left-radius, $topLeftRadius, 'webkit' 'moz');
-    @include prefix(border-top-right-radius, $topRightRadius, 'webkit' 'moz');
-    @include prefix(border-bottom-right-radius, $bottomRightRadius, 'webkit' 'moz');
-    @include prefix(border-bottom-left-radius, $bottomLeftRadius, 'webkit' 'moz');
+@mixin border-radius-separate($top-left-radius, $top-right-radius, $bottom-left-radius, $bottom-right-radius) {
+    @include prefix(border-top-left-radius, $top-left-radius, 'webkit' 'moz');
+    @include prefix(border-top-right-radius, $top-right-radius, 'webkit' 'moz');
+    @include prefix(border-bottom-right-radius, $bottom-right-radius, 'webkit' 'moz');
+    @include prefix(border-bottom-left-radius, $bottom-left-radius, 'webkit' 'moz');
 }
 
 
@@ -265,10 +265,11 @@ $base-font-size: 16px !default;
 
 /// Font-face helper mixin
 /// @access public
-/// @param {String} $fontFamily - Font family name
-/// @param {String} $eotFileSrc - EOT file source
-/// @param {String} $woffFileSrc - WOFF file source
-/// @param {String} $svgFileSrc - SVG file source
+/// @param {String} $font-family - Font family name
+/// @param {String} $EOT-file-src - EOT file source
+/// @param {String} $WOFF-file-src - WOFF file source
+/// @param {String} $TTF-file-src - TTF file source
+/// @param {String} $SVG-file-src - SVG file source
 /// @param {String | Number} $weight - Font weight
 /// @param {String} $style - Font style
 /// @example scss - Usage
@@ -281,12 +282,12 @@ $base-font-size: 16px !default;
 ///     300,
 ///     normal
 ///   );
-@mixin font-face($fontFamily, $eotFileSrc, $woffFileSrc, $ttfFileSrc, $svgFileSrc, $weight, $style) {
-    font-family: $fontFamily;
-    src: url($eotFileSrc)  format('eot'),
-         url($woffFileSrc) format('woff'),
-         url($ttfFileSrc)  format('truetype'),
-         url($svgFileSrc)  format('svg');
+@mixin font-face($font-family, $EOT-file-src, $WOFF-file-src, $TTF-file-src, $SVG-file-src, $weight, $style) {
+    font-family: $font-family;
+    src: url($EOT-file-src)  format('eot'),
+         url($WOFF-file-src) format('woff'),
+         url($TTF-file-src)  format('truetype'),
+         url($SVG-file-src)  format('svg');
     font-weight: $weight;
     font-style: $style;
 }
@@ -355,7 +356,7 @@ $base-font-size: 16px !default;
 
 /// Line height helper
 /// @access public
-/// @param {Number} $heightValue [12] - Height value
+/// @param {Number} $height-value [12] - Height value
 /// @example scss - Usage
 ///   .foo {
 ///     @include line-height(16);
@@ -365,9 +366,9 @@ $base-font-size: 16px !default;
 ///     line-height: 16px;
 ///     line-height: 1rem;
 ///   }
-@mixin line-height($heightValue: 12) {
-    line-height: $heightValue * 1px; //fallback for old browsers
-    line-height: (1 / ($base-font-size / ($base-font-size * 0 + 1)) * $heightValue * 1rem);
+@mixin line-height($height-value: 12) {
+    line-height: $height-value * 1px; //fallback for old browsers
+    line-height: (1 / ($base-font-size / ($base-font-size * 0 + 1)) * $height-value * 1rem);
 }
 
 
