@@ -514,17 +514,17 @@ $base-font-size: 16px !default;
 /// Sizing helper
 /// @access public
 /// @param {Length} $width - Width
-/// @param {Length} $height - Height
+/// @param {Length} $height [$width] - Height
 /// @example scss - Usage
 ///   .foo {
-///     @include size(350px, 350px);
+///     @include size(350px);
 ///   }
 /// @example css - Result
 ///   .foo {
 ///     width: 350px;
 ///     height: 350px;
 ///   }
-@mixin size($width, $height) {
+@mixin size($width, $height: $width) {
     width: $width;
     height: $height;
 }
