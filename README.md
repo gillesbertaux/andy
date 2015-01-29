@@ -1,4 +1,4 @@
-# Andy.scss: Open-Source Collection of Useful Sass Mixins Library.
+# Andy.scss: Open-Source Collection of Sass Mixins Library.
 
 **Current Version: 1.1**
 
@@ -6,16 +6,18 @@ Homepage: [http://gillesbertaux.com/andy](http://gillesbertaux.com/andy)
 
 The purpose of Andy is to gather useful mixins and avoid enless researches or heavy framework use. Feel free to fork it on Github and add your own mixins: https://github.com/gillesbertaux/andy
 
+![capture d ecran 2015-01-29 a 11 00 12](https://cloud.githubusercontent.com/assets/3040867/5955722/2054b498-a7a6-11e4-9459-566282586c82.png)
 
 ## Installation
 
-Download or use Bower:
+You can:
+
+Download the file and place it your Sass project. Another solution is to use Bower:
 
 ```
 $ bower install andy
 ```
-
-or
+or install the ruby gem:
 
 ```
 gem 'rails-assets-andy'
@@ -23,33 +25,13 @@ gem 'rails-assets-andy'
 
 ## How to use
 
-You can either pick the mixins you find useful or include the entire file in your Sass project.
-
-Put this mixin in your helper file:
+Just include the entire file. Then you can change the default settings in andy.scss. For example, you can change the base font-size:
 
 ```
-@mixin hover($time) {
-  -webkit-transition: all $time ease-in-out;
-  -o-transition: all $time ease-in-out;
-  -moz-transition: all $time ease-in-out;
-  transition: all $time ease-in-out;
-}
-```
-Then call it like:
-
-```
-@include hover(.3s);
-```
-
-[NEW] In case you want to include the entire file, you can change the default settings in andy.scss. For example, you can change the base font-size:
-
-```
-/* ANDY SETTINGS */
-
 $base-font-size: 16px !default;
 ```
 
-Additional default settings will be soon added.
+Additional default settings will be soon added. Otherwise, be sure to check out the documentation at: http://gillesbertaux.com/andy/doc.
 
 --------
 
