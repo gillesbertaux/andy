@@ -1,0 +1,6 @@
+*
+!doc/*
+!andy.scss
+!LICENSE.md
+!README.md
+!bower.json

@@ -1,0 +1,798 @@
+////
+/// Andy.SCSS: Open-Source Collection of Useful SASS Mixins Library.
+/// URL: http://gillesbertaux.com/andy$
+/// Repository: https://github.com/gillesbertaux/andy
+/// By: Gilles Bertaux | http://gillesbertaux.com | @gillesbertaux
+/// The purpose of Andy is to gather useful mixins and avoid endless research
+/// or heavy framework use. Feel free to fork it on Github and add your own mixins:
+////
+
+
+/// Base font size for Andy
+/// @access public
+/// @type Length
+$base-font-size: 16px !default;
+
+
+/// Mixin helper to output vendor prefixes
+/// @access private
+/// @author HugoGiraudel
+/// @param {String} $property - Unprefixed CSS property
+/// @param {*} $value - Raw CSS value
+/// @param {List} $prefixes [()] - List of prefixes to output
+@mixin prefix($property, $value, $prefixes: ()) {
+  @each $prefix in $prefixes {
+    -#{$prefix}-#{$property}: $value;
+  }
+
+  #{$property}: $value;
+}
+
+
+/// Mixin helper to prefix `@keyframes`
+/// @access private
+/// @param {String} $name - Animation name
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+
+/// Background gradient helper
+/// @access public
+/// @param {Color} $start-color - Start color
+/// @param {Color} $end-color - End color
+/// @param {String} $orientation - Type of gradient, either `vertical`, `horizontal` or `radial`
+/// @example scss - Usage
+///   .foo {
+///     @include background-gradient(red, black, 'vertical');
+///   }
+/// @example css - Result
+///   .foo {
+///     background: -webkit-linear-gradient(top, red, black);
+///     background: linear-gradient(to bottom, red, black);
+///   }
+@mixin background-gradient($start-color, $end-color, $orientation) {
+    background: $start-color;
+
+    @if $orientation == 'vertical' {
+      background: -webkit-linear-gradient(top, $start-color, $end-color);
+      background: linear-gradient(to bottom, $start-color, $end-color);
+    } @else if $orientation == 'horizontal' {
+      background: -webkit-linear-gradient(left, $start-color, $end-color);
+      background: linear-gradient(to right, $start-color, $end-color);
+    } @else {
+      background: -webkit-radial-gradient(center, ellipse cover, $start-color, $end-color);
+      background: radial-gradient(ellipse at center, $start-color, $end-color);
+    }
+}
+
+
+/// Background size helper
+/// @access public
+/// @param {Length} $width - Background width
+/// @param {Length} $height [$width] - Background height
+/// @example scss - Usage
+///   .foo {
+///     @include background-size(100%);
+///   }
+/// @example scss - Result
+///   .foo {
+///     -webkit-background-size: 100% 100%;
+///     -moz-background-size: 100% 100%;
+///     background-size: 100% 100%;
+///   }
+@mixin background-size($width, $height: $width) {
+    @include prefix(background-size, $width $height, 'webkit' 'moz');
+}
+
+
+/// Separated border-radius helpers
+/// @access public
+/// @param {Length} $top-left-radius - Top left radius
+/// @param {Length} $top-right-radius - Top right radius
+/// @param {Length} $bottom-left-radius - Bottom left radius
+/// @param {Length} $bottom-right-radius - Bottom right radius
+/// @example scss - Usage
+///   .foo {
+///     @include border-radius-separate(1px, 2px, 3px, 4px);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-border-top-left-radius: 1px;
+///     -moz-border-top-left-radius: 1px;
+///     border-top-left-radius: 1px;
+///     -webkit-border-top-right-radius: 2px;
+///     -moz-border-top-right-radius: 2px;
+///     border-top-right-radius: 2px;
+///     -webkit-border-bottom-right-radius: 3px;
+///     -moz-border-bottom-right-radius: 3px;
+///     border-bottom-right-radius: 3px;
+///     -webkit-border-bottom-left-radius: 4px;
+///     -moz-border-bottom-left-radius: 4px;
+///     border-bottom-left-radius: 4px;
+///   }
+@mixin border-radius-separate($top-left-radius, $top-right-radius, $bottom-left-radius, $bottom-right-radius) {
+    @include prefix(border-top-left-radius, $top-left-radius, 'webkit' 'moz');
+    @include prefix(border-top-right-radius, $top-right-radius, 'webkit' 'moz');
+    @include prefix(border-bottom-right-radius, $bottom-right-radius, 'webkit' 'moz');
+    @include prefix(border-bottom-left-radius, $bottom-left-radius, 'webkit' 'moz');
+}
+
+
+/// Box-sizing helper
+/// @access public
+/// @param {String} $type - Either `border-box`, `padding-box` or `content-box`
+/// @example scss - Usage
+///   .foo {
+///     @include box-sizing(border-box);
+///   }
+/// @example css - Result
+///   .foo {
+///     -moz-box-sizing: border-box;
+///     box-sizing: border-box;
+///   }
+@mixin box-sizing($type) {
+    @include prefix(box-sizing, $type, 'moz');
+}
+
+
+/// Block horizontal centering helper
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @include center-block;
+///   }
+/// @example css - Result
+///   .foo {
+///     display: block;
+///     margin-left: auto;
+///     margin-right: auto;
+///   }
+@mixin center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/// Block horizontal and vertical centering helper
+/// Important: you must have a parent element with `position: relative`.
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @include center-both;
+///   }
+/// @example css - Result
+///   .foo {
+///     position: absolute;
+///     top: 50%;
+///     left: 50%;
+///     -webkit-transform: translate(-50%, -50%);
+///     -ms-transform: translate(-50%, -50%);
+///     transform: translate(-50%, -50%);
+///   }
+@mixin center-both {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include prefix(transform, translate(-50%, -50%), 'webkit' 'ms');
+}
+
+
+/// Block vertical centering helper
+/// Require height to be known.
+/// @access public
+/// @param {Length} $height - Element's height
+/// @example scss - Usage
+///   .foo {
+///     @include center-h(42px);
+///   }
+/// @example css - Result
+///   .foo {
+///     position: absolute;
+///     top: 50%;
+///     height: 42px;
+///     margin-top: -21px;
+///   }
+@mixin center-h($height) {
+    position: absolute;
+    top: 50%;
+    height: $height;
+    margin-top: -($height / 2);
+}
+
+/// Block vertical centering helper
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @include center-h--unk;
+///   }
+/// @example css - Result
+///   .foo {
+///     position: relative;
+///     top: 50%;
+///     -webkit-transform: translateY(-50%);
+///     -ms-transform: translateY(-50%);
+///     transform: translateY(-50%);
+///   }
+@mixin center-h--unk {
+    position: relative;
+    top: 50%;
+    @include prefix(transform, translateY(-50%), 'webkit' 'ms');
+}
+
+
+/// Clearfix placeholder
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @extend %clearfix;
+///   }
+%clearfix {
+    *zoom: 1;
+
+    &:before, &:after {
+        content: ' ';
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+
+/// Outline
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @include outline;
+///   }
+/// @example css - Result
+///   .foo {
+///     box-shadow: rgba(255, 255, 255, 0.5) 0 1px 0, inset rgba(0, 0, 0, 0.75) 0 1px 0;
+///   }
+@mixin outline {
+    box-shadow: rgba(255, 255, 255, 0.5) 0 1px 0, inset rgba(0, 0, 0, 0.75) 0 1px 0;
+}
+
+
+/// Font-face helper mixin
+/// @access public
+/// @param {String} $font-name - Font family name
+/// @param {String} $file-name - File name (no extension)
+/// @param {String | Number} $weight [normal] - Font weight
+/// @param {String} $style [normal] - Font style
+/// @example scss - Usage
+///   @include font-face('gotham', '/fonts/gotham');
+@mixin font-face($font-name, $file-name, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: quote($font-name);
+    src: url($file-name + '.eot');
+    src: url($file-name + '.eot?#iefix')  format('embedded-opentype'),
+         url($file-name + '.woff') format('woff'),
+         url($file-name + '.ttf')  format('truetype'),
+         url($file-name + '.svg##{$font-name}')  format('svg');
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
+
+/// Font sizing helper
+/// @access public
+/// @param {Length} $size - Font size
+/// @example scss - Usage
+///   .foo {
+///     @include font-size(16px);
+///   }
+/// @example css - Result
+///   .foo {
+///     font-size: 16px;
+///     font-size: 1rem;
+///   }
+@mixin font-size($size) {
+  @if unitless($size) {
+    $size: $size * 1px;
+  }
+
+  font-size: $size;
+  font-size: ($size / $base-font-size) * 1rem;
+}
+
+
+/// Hardware acceleration
+/// @access public
+/// @example scss - Usage
+///   .foo {
+///     @include ha;
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-transform: translate3d(0, 0, 0);
+///     -moz-transform: translate3d(0, 0, 0);
+///     transform: translate3d(0, 0, 0);
+///   }
+@mixin ha {
+    @include prefix(transform, translate3d(0, 0, 0), 'webkit' 'ms');
+}
+
+
+/// Retina helper
+/// @access public
+/// @param {String} $image - Image path
+/// @param {Length} $width - Image width
+/// @param {Height} $height - Image height
+/// @example scss - Usage
+///   .foo {
+///     @include image-2x('../images/image.png', 100%, auto);
+///   }
+@mixin image-2x($image, $width, $height) {
+    @media (-webkit-min-device-pixel-ratio: 1.3),
+           (min-resolution: 124dpi),
+           (min-resolution: 1.3dppx) {
+        /* on retina, use image that's scaled by 2 */
+        background-image: url($image);
+        background-size: $width $height;
+    }
+}
+
+
+/// Line height helper
+/// @access public
+/// @param {Number} $height-value [12] - Height value
+/// @example scss - Usage
+///   .foo {
+///     @include line-height(16);
+///   }
+/// @example css - Result
+///   .foo {
+///     line-height: 16px;
+///     line-height: 1rem;
+///   }
+@mixin line-height($height-value: 12) {
+    line-height: $height-value * 1px; //fallback for old browsers
+    line-height: (1 / ($base-font-size / ($base-font-size * 0 + 1)) * $height-value * 1rem);
+}
+
+
+/// Max-width media query helper
+/// @access public
+/// @param {Length} $width - Max-width
+/// @param {Number | False} $ratio [false] - Min device pixel ratio
+/// @example scss - Usage
+///   .foo {
+///     @include mquery(350px, 2) {
+///       width: 100%;
+///     }
+///   }
+@mixin mquery($width, $ratio: false) {
+    @if $ratio {
+        @media
+            only screen and (max-width: $width) and  (min--moz-device-pixel-ratio: $ratio),
+            only screen and (max-width: $width) and  (-webkit-min-device-pixel-ratio: $ratio),
+            only screen and (max-width: $width) and  (min-device-pixel-ratio: $ratio) {
+            @content;
+        }
+    } @else {
+        @media only screen and (max-width: $width) {
+            @content;
+        }
+    }
+}
+
+
+/// Min ratio media query helper
+/// @access public
+/// @param {Number} $ratio - Min device pixel ratio
+/// @example scss - Usage
+///   .foo {
+///     @include mquery-r(2) {
+///       width: 100%;
+///     }
+///   }
+@mixin mquery-r($ratio) {
+    @media
+        only screen and (-webkit-min-device-pixel-ratio: $ratio),
+        only screen and (min--moz-device-pixel-ratio: $ratio),
+        only screen and (-o-min-device-pixel-ratio: $ratio),
+        only screen and (min-device-pixel-ratio: $ratio) {
+        @content;
+    }
+}
+
+
+/// Opacity helper
+/// @access public
+/// @param {Float} $opacity - Opacity
+/// @example scss - Usage
+///   .foo {
+///     @include opacity(0.5);
+///   }
+/// @example css - Result
+///   .foo {
+///     opacity: 0.5;
+///     filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#50)";
+///   }
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 100})";
+}
+
+
+/// Transparent black helper
+/// @access public
+/// @param {Float} $opacity - Opacity
+/// @example scss - Usage
+///   .foo {
+///     border-color: black(0.1);
+///   }
+/// @example css - Result
+///   .foo {
+///     border-color: rgba(0, 0, 0, 0.1);
+///   }
+@function black($opacity) {
+    @return rgba(0, 0, 0, $opacity);
+}
+
+
+/// Transparent white helper
+/// @access public
+/// @param {Float} $opacity - Opacity
+/// @example scss - Usage
+///   .foo {
+///     border-color: white(0.1);
+///   }
+/// @example css - Result
+///   .foo {
+///     border-color: rgba(255, 255, 255, 0.1);
+///   }
+@function white($opacity) {
+    @return rgba(255, 255, 255, $opacity);
+}
+
+
+/// Position helper
+/// @access public
+/// @param {String} $type - Either `relative`, `absolute` or `fixed`
+/// @param {Length} $left [null] - Left offset
+/// @param {Length} $right [null] - Right offset
+/// @param {Length} $top [null] - Top offset
+/// @param {Length} $bottom [null] - Bottom offset
+/// @example scss - Usage
+///   .foo {
+///     @include position(absolute, $top: 10px, $left: 10px);
+///   }
+/// @example css - Result
+///   .foo {
+///     position: absolute;
+///     left: 10px;
+///     top: 10px;
+///   }
+@mixin position($type, $top: null, $right: null, $bottom: null, $left: null) {
+    position: $type;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
+
+/// Scale helper
+/// @access public
+/// @param {Number} $value - Scale factor
+/// @example scss - Usage
+///   .foo {
+///     @include scale(2);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-transform: scale(2);
+///     -moz-transform: scale(2);
+///     transform: scale(2);
+///   }
+@mixin scale($value) {
+    @include prefix(transform, scale($value), 'webkit' 'ms');
+}
+
+
+/// Sizing helper
+/// @access public
+/// @param {Length} $width - Width
+/// @param {Length} $height [$width] - Height
+/// @example scss - Usage
+///   .foo {
+///     @include size(350px);
+///   }
+/// @example css - Result
+///   .foo {
+///     width: 350px;
+///     height: 350px;
+///   }
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+
+/// Embossing text shadow
+/// @access public
+/// @param {Float} $value - Opacity value
+/// @example scss - Usage
+///   .foo {
+///     @include text-shadow(0.5);
+///   }
+/// @example css - Result
+///   .foo {
+///     text-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
+///   }
+@mixin text-shadow($value) {
+    text-shadow: rgba(255, 255, 255, $value) 0 1px 0;
+}
+
+
+/// Translate x helper
+/// @access public
+/// @param {Length} $value - Offset value
+/// @example scss - Usage
+///   .foo {
+///     @include translate-x(1em);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-transform: translatex(1em);
+///     -moz-transform: translatex(1em);
+///     transform: translatex(1em);
+///   }
+@mixin translate-x($value) {
+    @include prefix(transform, translateX($value), 'webkit' 'ms');
+}
+
+
+/// Translate y helper
+/// @access public
+/// @param {Length} $value - Offset value
+/// @example scss - Usage
+///   .foo {
+///     @include translate-y(1em);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-transform: translatey(1em);
+///     -moz-transform: translatey(1em);
+///     transform: translatey(1em);
+///   }
+@mixin translate-y($value) {
+    @include prefix(transform, translateY($value), 'webkit' 'ms');
+}
+
+
+/// Transition helper
+/// @param {Time} $time [1s] - Duration
+/// @param {String} $timing-function [ease-in-out] - Timing function or cubic bezier curve
+/// @example scss - Usage
+///   .foo {
+///     @include transition(0.3s, ease-in);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-transition: all 0.3s ease-in;
+///     transition: all 0.3s ease-in;
+///   }
+@mixin transition($time: 1s, $timing-function: ease-in-out) {
+    @include prefix(transition, all $time $timing-function, 'webkit');
+}
+
+
+/// Animation scale-down
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include scale-down(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: scale-down 4.2s ease-out backwards;
+///     animation: scale-down 4.2s ease-out backwards;
+///   }
+@mixin scale-down($time: 1s) {
+    @include prefix(animation, scale-down $time ease-out 1, 'webkit');
+}
+
+@include keyframes('scale-down') {
+    from, to {
+        @include scale(1);
+    }
+
+    50% {
+        @include scale(.95);
+    }
+}
+
+
+/// Animation scale-up
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include scale-up(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: scale-up 4.2s ease-out backwards;
+///     animation: scale-up 4.2s ease-out backwards;
+///   }
+@mixin scale-up($time: 1s) {
+    @include prefix(animation, scale-up $time ease-in-out 1, 'webkit');
+}
+
+@include keyframes('scale-up') {
+    from, to {
+        @include scale(1);
+    }
+
+    50% {
+        @include scale(1.1);
+    }
+}
+
+
+/// Animation fade-in
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include fade-in(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: fade-in 4.2s ease-out backwards;
+///     animation: fade-in 4.2s ease-out backwards;
+///   }
+@mixin fade-in($time: 1s) {
+    @include prefix(animation, fade-in $time ease-out 1, 'webkit');
+}
+
+@include keyframes('fade-in') {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    };
+}
+
+
+/// Animation slide-in-down
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include slide-in-down(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: slide-in-down 4.2s ease-out backwards;
+///     animation: slide-in-down 4.2s ease-out backwards;
+///   }
+@mixin slide-in-down($time: 1s) {
+    @include prefix(animation, slide-in-down $time ease-in-out, 'webkit');
+}
+
+@include keyframes('slide-in-down') {
+    from {
+        @include translate-y(-100px); opacity: 0;
+    }
+
+    75% {
+        @include translate-y(0);
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/// Animation slide-in-up
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include slide-in-up(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: slide-in-up 4.2s ease-out backwards;
+///     animation: slide-in-up 4.2s ease-out backwards;
+///   }
+@mixin slide-in-up($time: 1s) {
+    @include prefix(animation, slide-in-up $time ease-in-out, 'webkit');
+}
+
+@include keyframes('slide-in-up') {
+    from {
+        @include translate-y(100px);
+        opacity: 0;
+    }
+
+    75% {
+        @include translate-y(0);
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/// Animation slide-in-right
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include slide-in-right(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: slide-in-right 4.2s ease-out backwards;
+///     animation: slide-in-right 4.2s ease-out backwards;
+///   }
+@mixin slide-in-right($time: 1s) {
+    @include prefix(animation, slide-in-right $time ease-out backwards, 'webkit');
+}
+
+@include keyframes('slide-in-right') {
+    from {
+        @include translate-x(100px);
+        opacity: 0;
+    }
+
+    75% {
+        @include translate-x(0);
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/// Animation slide-in-left
+/// @access public
+/// @param {Time} $time [1s] - Animation duration
+/// @example scss - Usage
+///   .foo {
+///     @include slide-in-left(4.2s);
+///   }
+/// @example css - Result
+///   .foo {
+///     -webkit-animation: slide-in-left 4.2s ease-out backwards;
+///     animation: slide-in-left 4.2s ease-out backwards;
+///   }
+@mixin slide-in-left($time: 1s) {
+    @include prefix(animation, slide-in-left $time ease-out backwards, 'webkit');
+}
+
+@include keyframes('slide-in-left') {
+    from {
+        @include translate-x(-100px);
+        opacity: 0;
+    }
+
+    75% {
+        @include translate-x(0);
+    }
+
+    to {
+        opacity: 1;
+    }
+}
