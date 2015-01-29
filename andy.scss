@@ -536,6 +536,7 @@ $base-font-size: 16px !default;
     text-shadow: rgba(255, 255, 255, $value) 0 1px 0;
 }
 
+
 /// Automatically prefix any transform
 /// @access public
 /// @param {String} $transformation - The transform to apply
@@ -625,11 +626,11 @@ $base-font-size: 16px !default;
 
 @include keyframes('scale-down') {
     from, to {
-        @include scale(1);
+        @include transform(scale(1));
     }
 
     50% {
-        @include scale(.95);
+        @include transform(scale(.95));
     }
 }
 
@@ -652,11 +653,11 @@ $base-font-size: 16px !default;
 
 @include keyframes('scale-up') {
     from, to {
-        @include scale(1);
+        @include transform(scale(1));
     }
 
     50% {
-        @include scale(1.1);
+        @include transform(scale(1.1));
     }
 }
 
@@ -706,11 +707,11 @@ $base-font-size: 16px !default;
 
 @include keyframes('slide-in-down') {
     from {
-        @include translate-y(-100px); opacity: 0;
+        @include transform(translateY(-100px)); opacity: 0;
     }
 
     75% {
-        @include translate-y(0);
+        @include transform(translateY(0));
     }
 
     to {
@@ -737,12 +738,12 @@ $base-font-size: 16px !default;
 
 @include keyframes('slide-in-up') {
     from {
-        @include translate-y(100px);
+        @include transform(translateY(100px));
         opacity: 0;
     }
 
     75% {
-        @include translate-y(0);
+        @include transform(translateY(0));
     }
 
     to {
@@ -769,12 +770,12 @@ $base-font-size: 16px !default;
 
 @include keyframes('slide-in-right') {
     from {
-        @include translate-x(100px);
+        @include transform(translateX(100px));
         opacity: 0;
     }
 
     75% {
-        @include translate-x(0);
+        @include transform(translateX(0));
     }
 
     to {
@@ -801,12 +802,12 @@ $base-font-size: 16px !default;
 
 @include keyframes('slide-in-left') {
     from {
-        @include translate-x(-100px);
+        @include transform(translateX(-100px));
         opacity: 0;
     }
 
     75% {
-        @include translate-x(0);
+        @include transform(translateX(0));
     }
 
     to {
