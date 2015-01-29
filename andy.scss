@@ -484,24 +484,6 @@ $base-font-size: 16px !default;
 }
 
 
-/// Scale helper
-/// @access public
-/// @param {Number} $value - Scale factor
-/// @example scss - Usage
-///   .foo {
-///     @include scale(2);
-///   }
-/// @example css - Result
-///   .foo {
-///     -webkit-transform: scale(2);
-///     -moz-transform: scale(2);
-///     transform: scale(2);
-///   }
-@mixin scale($value) {
-    @include prefix(transform, scale($value), 'webkit' 'ms');
-}
-
-
 /// Sizing helper
 /// @access public
 /// @param {Length} $width - Width
@@ -552,42 +534,6 @@ $base-font-size: 16px !default;
 ///   }
 @mixin transform($transformation){
   @include prefix(transform, $transformation, 'webkit' 'ms');
-}
-
-
-/// Translate x helper
-/// @access public
-/// @param {Length} $value - Offset value
-/// @example scss - Usage
-///   .foo {
-///     @include translate-x(1em);
-///   }
-/// @example css - Result
-///   .foo {
-///     -webkit-transform: translatex(1em);
-///     -moz-transform: translatex(1em);
-///     transform: translatex(1em);
-///   }
-@mixin translate-x($value) {
-    @include prefix(transform, translateX($value), 'webkit' 'ms');
-}
-
-
-/// Translate y helper
-/// @access public
-/// @param {Length} $value - Offset value
-/// @example scss - Usage
-///   .foo {
-///     @include translate-y(1em);
-///   }
-/// @example css - Result
-///   .foo {
-///     -webkit-transform: translatey(1em);
-///     -moz-transform: translatey(1em);
-///     transform: translatey(1em);
-///   }
-@mixin translate-y($value) {
-    @include prefix(transform, translateY($value), 'webkit' 'ms');
 }
 
 
