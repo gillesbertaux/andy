@@ -1,4 +1,4 @@
-# Andy.scss: Open-Source Collection of Sass Mixins Library.
+# Andy.scss: Open-Source Collection of Sass Mixins.
 
 **Current Version: 1.1**
 
