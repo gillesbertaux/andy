@@ -96,8 +96,8 @@ $base-font-size: 16px !default;
 /// @access public
 /// @param {Length} $top-left-radius - Top left radius
 /// @param {Length} $top-right-radius - Top right radius
-/// @param {Length} $bottom-left-radius - Bottom left radius
 /// @param {Length} $bottom-right-radius - Bottom right radius
+/// @param {Length} $bottom-left-radius - Bottom left radius
 /// @example scss - Usage
 ///   .foo {
 ///     @include border-radius-separate(1px, 2px, 3px, 4px);
@@ -117,7 +117,7 @@ $base-font-size: 16px !default;
 ///     -moz-border-bottom-left-radius: 4px;
 ///     border-bottom-left-radius: 4px;
 ///   }
-@mixin border-radius-separate($top-left-radius, $top-right-radius, $bottom-left-radius, $bottom-right-radius) {
+@mixin border-radius-separate($top-left-radius, $top-right-radius, $bottom-right-radius, $bottom-left-radius) {
     @include prefix(border-top-left-radius, $top-left-radius, 'webkit' 'moz');
     @include prefix(border-top-right-radius, $top-right-radius, 'webkit' 'moz');
     @include prefix(border-bottom-right-radius, $bottom-right-radius, 'webkit' 'moz');
