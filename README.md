@@ -33,9 +33,7 @@ $base-font-size: 16px !default;
 
 Additional default settings will be soon added. Otherwise, be sure to check out the documentation at: http://gillesbertaux.com/andy/doc.
 
---------
-
-**Mixins availables:**
+## Mixins availables:
   - Background Gradient
   - Background Size
   - Border Corners
