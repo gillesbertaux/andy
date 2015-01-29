@@ -8,13 +8,13 @@
 ////
 
 
-/// Base font size for Andy
+/// Base font size setting for Andy
 /// @access public
 /// @type Length
 $base-font-size: 16px !default;
 
 
-/// Mixin helper to output vendor prefixes
+/// Mixin helper to output vendor-prefixed CSS
 /// @access private
 /// @author HugoGiraudel
 /// @param {String} $property - Unprefixed CSS property
@@ -142,7 +142,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Block horizontal centering helper
+/// Horizontally centers block elements
 /// @access public
 /// @example scss - Usage
 ///   .foo {
@@ -161,7 +161,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Block horizontal and vertical centering helper
+/// Horizontally and vertically centers block elements
 /// Important: you must have a parent element with `position: relative`.
 /// @access public
 /// @example scss - Usage
@@ -185,8 +185,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Block vertical centering helper
-/// Require height to be known.
+/// Vertically centers block elements with known height.
 /// @access public
 /// @param {Length} $height - Element's height
 /// @example scss - Usage
@@ -207,7 +206,7 @@ $base-font-size: 16px !default;
     margin-top: -($height / 2);
 }
 
-/// Block vertical centering helper
+/// Vertically centers block elements with unknown height.
 /// @access public
 /// @example scss - Usage
 ///   .foo {
@@ -228,7 +227,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Clearfix placeholder
+/// Clearfix extend
 /// @access public
 /// @example scss - Usage
 ///   .foo {
@@ -248,7 +247,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Outline
+/// Adds a thin black line above the element, and a thin gray line below the element, creating an inlay effect.
 /// @access public
 /// @example scss - Usage
 ///   .foo {
@@ -263,7 +262,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Font-face helper mixin
+/// Given the location of a webfont, will generate a font-face declaration with multiple file formats.
 /// @access public
 /// @param {String} $font-name - Font family name
 /// @param {String} $file-name - File name (no extension)
@@ -285,7 +284,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Font sizing helper
+/// Given a font size in pixels, reproduces that font size in rems.
 /// @access public
 /// @param {Length} $size - Font size
 /// @example scss - Usage
@@ -307,7 +306,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Hardware acceleration
+/// Forces browsers to use hardware acceleration for transforms
 /// @access public
 /// @example scss - Usage
 ///   .foo {
@@ -324,7 +323,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Retina helper
+/// Retina image media query helper; given an image path with a 2x-sized version of an image, will load that image as a background-image on high-resolution devices.
 /// @access public
 /// @param {String} $image - Image path
 /// @param {Length} $width - Image width
@@ -344,7 +343,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Line height helper
+/// Generates line-height values in both pixels and rems.
 /// @access public
 /// @param {Number} $height-value [12] - Height value
 /// @example scss - Usage
@@ -362,7 +361,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Max-width media query helper
+/// Media query helper for declaring media queries by width, and, optionally, ratio.
 /// @access public
 /// @param {Length} $width - Max-width
 /// @param {Number | False} $ratio [false] - Min device pixel ratio
@@ -388,7 +387,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Min ratio media query helper
+/// Media query helper for declaring media queries by device pixel ratio.
 /// @access public
 /// @param {Number} $ratio - Min device pixel ratio
 /// @example scss - Usage
@@ -408,7 +407,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Opacity helper
+/// Given an opacity value, generates that value as well as a way to display that opacity value in Internet Explorer 8 and 9.
 /// @access public
 /// @param {Float} $opacity - Opacity
 /// @example scss - Usage
@@ -426,7 +425,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Transparent black helper
+/// Generates the color black, with, optionally, a set opacity.
 /// @access public
 /// @param {Float} $opacity - Opacity
 /// @example scss - Usage
@@ -442,7 +441,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Transparent white helper
+/// Generates the color white, with, optionally, a set opacity.
 /// @access public
 /// @param {Float} $opacity - Opacity
 /// @example scss - Usage
@@ -458,7 +457,7 @@ $base-font-size: 16px !default;
 }
 
 
-/// Position helper
+/// Shorthandizes position declarations.
 /// @access public
 /// @param {String} $type - Either `relative`, `absolute` or `fixed`
 /// @param {Length} $left [null] - Left offset
