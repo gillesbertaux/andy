@@ -3,6 +3,7 @@ css/
 img/
 js/
 sass/
+!doc/
 config.rb
 config.codekit
 index.html
