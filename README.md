@@ -61,9 +61,9 @@ Additional default settings will be soon added. Otherwise, be sure to check out 
   - Transition
   - Transitions Snippets
 
---------
+## Contributors
 
-Contributors:
+Andy is supported by amazing contributors:
 - [@mrjacob](https://github.com/mrjacob)
 - [@mknadler](https://github.com/mknadler)
 - [@hugogiraudel](https://github.com/HugoGiraudel)
