@@ -483,24 +483,6 @@ $base-font-size: 16px !default;
 }
 
 
-/// Scale helper
-/// @access public
-/// @param {Number} $value - Scale factor
-/// @example scss - Usage
-///   .foo {
-///     @include scale(2);
-///   }
-/// @example css - Result
-///   .foo {
-///     -webkit-transform: scale(2);
-///     -moz-transform: scale(2);
-///     transform: scale(2);
-///   }
-@mixin scale($value) {
-    @include prefix(transform, scale($value), 'webkit' 'ms');
-}
-
-
 /// Sizing helper
 /// @access public
 /// @param {Length} $width - Width
@@ -536,39 +518,21 @@ $base-font-size: 16px !default;
 }
 
 
-/// Translate x helper
+/// Automatically prefix any transform
 /// @access public
-/// @param {Length} $value - Offset value
+/// @param {String} $transformation - The transform to apply
 /// @example scss - Usage
 ///   .foo {
-///     @include translate-x(1em);
+///     @include transform(translateX(10px));
 ///   }
 /// @example css - Result
 ///   .foo {
-///     -webkit-transform: translatex(1em);
-///     -moz-transform: translatex(1em);
-///     transform: translatex(1em);
+///     -webkit-transform: translateX(10px);
+///     -ms-transform: translateX(10px);
+///     transform: translateX(10px);
 ///   }
-@mixin translate-x($value) {
-    @include prefix(transform, translateX($value), 'webkit' 'ms');
-}
-
-
-/// Translate y helper
-/// @access public
-/// @param {Length} $value - Offset value
-/// @example scss - Usage
-///   .foo {
-///     @include translate-y(1em);
-///   }
-/// @example css - Result
-///   .foo {
-///     -webkit-transform: translatey(1em);
-///     -moz-transform: translatey(1em);
-///     transform: translatey(1em);
-///   }
-@mixin translate-y($value) {
-    @include prefix(transform, translateY($value), 'webkit' 'ms');
+@mixin transform($transformation){
+  @include prefix(transform, $transformation, 'webkit' 'ms');
 }
 
 
@@ -607,11 +571,11 @@ $base-font-size: 16px !default;
 
 @include keyframes('scale-down') {
     from, to {
-        @include scale(1);
+        @include transform(scale(1));
     }
 
     50% {
-        @include scale(.95);
+        @include transform(scale(.95));
     }
 }
 
@@ -634,11 +598,11 @@ $base-font-size: 16px !default;
 
 @include keyframes('scale-up') {
     from, to {
-        @include scale(1);
+        @include transform(scale(1));
     }
 
     50% {
-        @include scale(1.1);
+        @include transform(scale(1.1));
     }
 }
 
@@ -688,11 +652,11 @@ $base-font-size: 16px !default;
 
 @include keyframes('slide-in-down') {
     from {
-        @include translate-y(-100px); opacity: 0;
+        @include transform(translateY(-100px)); opacity: 0;
     }
 
     75% {
-        @include translate-y(0);
+        @include transform(translateY(0));
     }
 
     to {
@@ -719,12 +683,12 @@ $base-font-size: 16px !default;
 
 @include keyframes('slide-in-up') {
     from {
-        @include translate-y(100px);
+        @include transform(translateY(100px));
         opacity: 0;
     }
 
     75% {
-        @include translate-y(0);
+        @include transform(translateY(0));
     }
 
     to {
@@ -751,12 +715,12 @@ $base-font-size: 16px !default;
 
 @include keyframes('slide-in-right') {
     from {
-        @include translate-x(100px);
+        @include transform(translateX(100px));
         opacity: 0;
     }
 
     75% {
-        @include translate-x(0);
+        @include transform(translateX(0));
     }
 
     to {
@@ -783,12 +747,12 @@ $base-font-size: 16px !default;
 
 @include keyframes('slide-in-left') {
     from {
-        @include translate-x(-100px);
+        @include transform(translateX(-100px));
         opacity: 0;
     }
 
     75% {
-        @include translate-x(0);
+        @include transform(translateX(0));
     }
 
     to {
