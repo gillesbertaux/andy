@@ -575,57 +575,45 @@ $base-font-size: 16px !default;
 }
 
 
-/// Animation scale-down
+/// Generates a grow-then-shrink (or shrink-then-grow) animation using transform(scale).
 /// @access public
-/// @param {Time} $time [1s] - Animation duration
+/// @param {Number} $scale-change [1.1] - The amount to scale by.
+/// @param {List} $animation-properties - Animation properties to apply.
 /// @example scss - Usage
 ///   .foo {
-///     @include scale-down(4.2s);
+///     @include scale(0.5, 3s ease infinite alternate);
 ///   }
 /// @example css - Result
 ///   .foo {
-///     -webkit-animation: scale-down 4.2s ease-out backwards;
-///     animation: scale-down 4.2s ease-out backwards;
+///     -webkit-animation: "scale-0-5" 3s ease infinite alternate;
+///     animation: "scale-0-5" 3s ease infinite alternate;
 ///   }
-@mixin scale-down($time: 1s) {
-    @include prefix(animation, scale-down $time ease-out 1, 'webkit');
-}
+///  // -webkit- prefixed @keyframes are also generated
+///  @keyframes scale-0-5 {
+///    from, to {
+///      -webkit-transform: scale(1);
+///      -ms-transform: scale(1);
+///      transform: scale(1);
+///    }
+///    50% {
+///      -webkit-transform: scale(0.5);
+///      -ms-transform: scale(0.5);
+///      transform: scale(0.5);
+///    }
+///  }
+@mixin scale($scale-change:1.1, $animation-properties: 1s ease-in-out) {
+  $alias: 'scale-' + str-replace($scale-change + '', '.', '-');
 
-@include keyframes('scale-down') {
-    from, to {
-        @include transform(scale(1));
+  @include keyframes($alias){
+    0%, 100% {
+      @include transform(scale(1));
     }
-
     50% {
-        @include transform(scale(.95));
+      @include transform(scale($scale-change));
     }
-}
+  }
 
-
-/// Animation scale-up
-/// @access public
-/// @param {Time} $time [1s] - Animation duration
-/// @example scss - Usage
-///   .foo {
-///     @include scale-up(4.2s);
-///   }
-/// @example css - Result
-///   .foo {
-///     -webkit-animation: scale-up 4.2s ease-out backwards;
-///     animation: scale-up 4.2s ease-out backwards;
-///   }
-@mixin scale-up($time: 1s) {
-    @include prefix(animation, scale-up $time ease-in-out 1, 'webkit');
-}
-
-@include keyframes('scale-up') {
-    from, to {
-        @include transform(scale(1));
-    }
-
-    50% {
-        @include transform(scale(1.1));
-    }
+  @include prefix(animation, $alias $animation-properties, 'webkit');
 }
 
 
@@ -691,7 +679,8 @@ $base-font-size: 16px !default;
 @mixin slide-in-from($slide-axis: x, $slide-offset: -100px, $animation-properties: 3s ease-out) {
   $slide-start: if($slide-axis == x, translateX($slide-offset), translateY($slide-offset));
   $slide-end: if($slide-axis == x, translateX(0), translateY(0));
- @include keyframes(slide-in-#{$slide-axis}-#{$slide-offset}){
+
+  @include keyframes(slide-in-#{$slide-axis}-#{$slide-offset}){
     0% {
       opacity: 0;
       @include transform($slide-start);
@@ -703,5 +692,6 @@ $base-font-size: 16px !default;
       opacity: 1;
     }
   }
+
   @include prefix(animation, slide-in-#{$slide-axis}-#{$slide-offset} $animation-properties, 'webkit');
 }
