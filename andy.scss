@@ -694,14 +694,14 @@ $base-font-size: 16px !default;
 
   @include keyframes(slide-in-#{$slide-axis}-#{$slide-offset}){
     0% {
-      opacity: 0;
+      @include opacity(0);
       @include transform($slide-start);
     }
     75% {
       @include transform($slide-end);
     }
     100% {
-      opacity: 1;
+      @include opacity(1);
     }
   }
 
