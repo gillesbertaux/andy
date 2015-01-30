@@ -43,6 +43,28 @@ $base-font-size: 16px !default;
 }
 
 
+/// Function helper to strip a single character from a string; by default, simply removes the character.
+/// @access private
+/// @param {String} $string - The string to alter.
+/// @param {String} $to-replace - The character to check for.
+/// @param {String} $replacement [''] - The character to replace the removed character with.
+/// @example scss - Usage {
+///   .foo:after {
+///     content: str-replace('Hello.', '.', '!');
+///   }
+/// @example css - Result
+///   .foo:after {
+///     content: 'Hello!'
+///   }
+@function str-replace($string, $to-replace, $replacement:'') {
+  $target-location: str-index($string, $to-replace);
+  @if $target-location == null { @return $string; }
+  $string-without-target: str-slice($string, 1, $target-location - 1) + str-slice($string, $target-location + 1);
+  $string: str-insert($string-without-target, $replacement, $target-location);
+  @return $string;
+}
+
+
 /// Background gradient helper
 /// @access public
 /// @param {Color} $start-color - Start color
