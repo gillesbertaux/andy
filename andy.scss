@@ -617,30 +617,42 @@ $base-font-size: 16px !default;
 }
 
 
-/// Animation fade-in
+/// Given two opacity values, animates an element between those opacity values.
 /// @access public
-/// @param {Time} $time [1s] - Animation duration
+/// @param {Number} $fade-from [0] - The beginning opacity value.
+/// @param {Number} $fade-to [1] - The final opacity value.
+/// @param {List} $animation-properties [1s ease] - The animation properties to apply.
 /// @example scss - Usage
 ///   .foo {
-///     @include fade-in(4.2s);
+///     @include fade(.8, .2, 3s linear);
 ///   }
 /// @example css - Result
 ///   .foo {
-///     -webkit-animation: fade-in 4.2s ease-out backwards;
-///     animation: fade-in 4.2s ease-out backwards;
+///     -webkit-animation: fade-0-8-0-2 3s linear;
+///     animation: fade-0-8-0-2 3s linear;
 ///   }
-@mixin fade-in($time: 1s) {
-    @include prefix(animation, fade-in $time ease-out 1, 'webkit');
-}
-
-@include keyframes('fade-in') {
+/// // (the @keyframes are also generated with a -webkit- vendor prefix)
+///   @keyframes fade-0-8-0-2 {
+///     from {
+///       opacity: 0.8;
+///       -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+///     }
+///     to {
+///       opacity: 0.2;
+///       -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+///     }
+///   }
+@mixin fade($fade-from: 0, $fade-to: 1, $animation-properties: 1s ease) {
+    $alias: fade- + str-replace($fade-from + '', '.', '-') + '-' + str-replace($fade-to + '', '.', '-');
+    @include keyframes($alias){
     from {
-        opacity: 0;
+      @include opacity($fade-from);
     }
-
     to {
-        opacity: 1;
-    };
+      @include opacity($fade-to);
+    }
+  }
+  @include prefix(animation, $alias $animation-properties, 'webkit');
 }
 
 
