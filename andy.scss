@@ -43,6 +43,28 @@ $base-font-size: 16px !default;
 }
 
 
+/// Function helper to strip a single character from a string; by default, simply removes the character.
+/// @access private
+/// @param {String} $string - The string to alter.
+/// @param {String} $to-replace - The character to check for.
+/// @param {String} $replacement [''] - The character to replace the removed character with.
+/// @example scss - Usage {
+///   .foo:after {
+///     content: str-replace('Hello.', '.', '!');
+///   }
+/// @example css - Result
+///   .foo:after {
+///     content: 'Hello!'
+///   }
+@function str-replace($string, $to-replace, $replacement:'') {
+  $target-location: str-index($string, $to-replace);
+  @if $target-location == null { @return $string; }
+  $string-without-target: str-slice($string, 1, $target-location - 1) + str-slice($string, $target-location + 1);
+  $string: str-insert($string-without-target, $replacement, $target-location);
+  @return $string;
+}
+
+
 /// Background gradient helper
 /// @access public
 /// @param {Color} $start-color - Start color
@@ -553,209 +575,135 @@ $base-font-size: 16px !default;
 }
 
 
-/// Animation scale-down
+/// Generates a grow-then-shrink (or shrink-then-grow) animation using transform(scale).
 /// @access public
-/// @param {Time} $time [1s] - Animation duration
+/// @param {Number} $scale-change [1.1] - The amount to scale by.
+/// @param {List} $animation-properties - Animation properties to apply.
 /// @example scss - Usage
 ///   .foo {
-///     @include scale-down(4.2s);
+///     @include scale(0.5, 3s ease infinite alternate);
 ///   }
 /// @example css - Result
 ///   .foo {
-///     -webkit-animation: scale-down 4.2s ease-out backwards;
-///     animation: scale-down 4.2s ease-out backwards;
+///     -webkit-animation: "scale-0-5" 3s ease infinite alternate;
+///     animation: "scale-0-5" 3s ease infinite alternate;
 ///   }
-@mixin scale-down($time: 1s) {
-    @include prefix(animation, scale-down $time ease-out 1, 'webkit');
-}
+///  // -webkit- prefixed @keyframes are also generated
+///  @keyframes scale-0-5 {
+///    from, to {
+///      -webkit-transform: scale(1);
+///      -ms-transform: scale(1);
+///      transform: scale(1);
+///    }
+///    50% {
+///      -webkit-transform: scale(0.5);
+///      -ms-transform: scale(0.5);
+///      transform: scale(0.5);
+///    }
+///  }
+@mixin scale($scale-change:1.1, $animation-properties: 1s ease-in-out) {
+  $alias: 'scale-' + str-replace($scale-change + '', '.', '-');
 
-@include keyframes('scale-down') {
-    from, to {
-        @include transform(scale(1));
+  @include keyframes($alias){
+    0%, 100% {
+      @include transform(scale(1));
     }
-
     50% {
-        @include transform(scale(.95));
+      @include transform(scale($scale-change));
     }
+  }
+
+  @include prefix(animation, $alias $animation-properties, 'webkit');
 }
 
 
-/// Animation scale-up
+/// Given two opacity values, animates an element between those opacity values.
 /// @access public
-/// @param {Time} $time [1s] - Animation duration
+/// @param {Number} $fade-from [0] - The beginning opacity value.
+/// @param {Number} $fade-to [1] - The final opacity value.
+/// @param {List} $animation-properties [1s ease] - The animation properties to apply.
 /// @example scss - Usage
 ///   .foo {
-///     @include scale-up(4.2s);
+///     @include fade(.8, .2, 3s linear);
 ///   }
 /// @example css - Result
 ///   .foo {
-///     -webkit-animation: scale-up 4.2s ease-out backwards;
-///     animation: scale-up 4.2s ease-out backwards;
+///     -webkit-animation: fade-0-8-0-2 3s linear;
+///     animation: fade-0-8-0-2 3s linear;
 ///   }
-@mixin scale-up($time: 1s) {
-    @include prefix(animation, scale-up $time ease-in-out 1, 'webkit');
-}
-
-@include keyframes('scale-up') {
-    from, to {
-        @include transform(scale(1));
-    }
-
-    50% {
-        @include transform(scale(1.1));
-    }
-}
-
-
-/// Animation fade-in
-/// @access public
-/// @param {Time} $time [1s] - Animation duration
-/// @example scss - Usage
-///   .foo {
-///     @include fade-in(4.2s);
+/// // (the @keyframes are also generated with a -webkit- vendor prefix)
+///   @keyframes fade-0-8-0-2 {
+///     from {
+///       opacity: 0.8;
+///       -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+///     }
+///     to {
+///       opacity: 0.2;
+///       -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+///     }
 ///   }
-/// @example css - Result
-///   .foo {
-///     -webkit-animation: fade-in 4.2s ease-out backwards;
-///     animation: fade-in 4.2s ease-out backwards;
-///   }
-@mixin fade-in($time: 1s) {
-    @include prefix(animation, fade-in $time ease-out 1, 'webkit');
-}
-
-@include keyframes('fade-in') {
+@mixin fade($fade-from: 0, $fade-to: 1, $animation-properties: 1s ease) {
+    $alias: fade- + str-replace($fade-from + '', '.', '-') + '-' + str-replace($fade-to + '', '.', '-');
+    @include keyframes($alias){
     from {
-        opacity: 0;
+      @include opacity($fade-from);
     }
-
     to {
-        opacity: 1;
-    };
+      @include opacity($fade-to);
+    }
+  }
+  @include prefix(animation, $alias $animation-properties, 'webkit');
 }
 
 
-/// Animation slide-in-down
+/// Slide-in-from creates and calls an animation that slides an element on a given axis for a given amount of space. The offset is measured in the distance from the location the element would naturally fall in, were transforms not applied to it.
 /// @access public
-/// @param {Time} $time [1s] - Animation duration
+/// @param {String} $slide-axis [x] - The axis on which to slide; 'x' or 'y'.
+/// @param {Length} $slide-offset [-100px] - The offset from the natural element position from which to begin the animation.
+/// @param {List} $animation-properties [3s ease-out] - Any animation properties to be included.
 /// @example scss - Usage
 ///   .foo {
-///     @include slide-in-down(4.2s);
+///     @include slide-in-from(y, -200px, 3s ease alternate infinite);
 ///   }
 /// @example css - Result
 ///   .foo {
-///     -webkit-animation: slide-in-down 4.2s ease-out backwards;
-///     animation: slide-in-down 4.2s ease-out backwards;
+///     -webkit-animation: slide-in-y--200px 3s linear infinite alternate;
+///     animation: slide-in-y--200px 3s linear infinite alternate;
 ///   }
-@mixin slide-in-down($time: 1s) {
-    @include prefix(animation, slide-in-down $time ease-in-out, 'webkit');
-}
+///
+/// // (the @keyframes are also generated with a -webkit- vendor prefix)
+///   @keyframes slide-in-y--200px {
+///     0% {
+///       opacity: 0;
+///       -webkit-transform: translateY(-200px);
+///       -ms-transform: translateY(-200px);
+///       transform: translateY(-200px);
+///     }
+///     75% {
+///       -webkit-transform: translateY(0);
+///       -ms-transform: translateY(0);
+///       transform: translateY(0);
+///     }
+///     100% {
+///       opacity: 1;
+///     }
+///   }
+@mixin slide-in-from($slide-axis: x, $slide-offset: -100px, $animation-properties: 3s ease-out) {
+  $slide-start: if($slide-axis == x, translateX($slide-offset), translateY($slide-offset));
+  $slide-end: if($slide-axis == x, translateX(0), translateY(0));
 
-@include keyframes('slide-in-down') {
-    from {
-        @include transform(translateY(-100px)); opacity: 0;
+  @include keyframes(slide-in-#{$slide-axis}-#{$slide-offset}){
+    0% {
+      @include opacity(0);
+      @include transform($slide-start);
     }
-
     75% {
-        @include transform(translateY(0));
+      @include transform($slide-end);
     }
-
-    to {
-        opacity: 1;
+    100% {
+      @include opacity(1);
     }
-}
+  }
 
-
-/// Animation slide-in-up
-/// @access public
-/// @param {Time} $time [1s] - Animation duration
-/// @example scss - Usage
-///   .foo {
-///     @include slide-in-up(4.2s);
-///   }
-/// @example css - Result
-///   .foo {
-///     -webkit-animation: slide-in-up 4.2s ease-out backwards;
-///     animation: slide-in-up 4.2s ease-out backwards;
-///   }
-@mixin slide-in-up($time: 1s) {
-    @include prefix(animation, slide-in-up $time ease-in-out, 'webkit');
-}
-
-@include keyframes('slide-in-up') {
-    from {
-        @include transform(translateY(100px));
-        opacity: 0;
-    }
-
-    75% {
-        @include transform(translateY(0));
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-
-/// Animation slide-in-right
-/// @access public
-/// @param {Time} $time [1s] - Animation duration
-/// @example scss - Usage
-///   .foo {
-///     @include slide-in-right(4.2s);
-///   }
-/// @example css - Result
-///   .foo {
-///     -webkit-animation: slide-in-right 4.2s ease-out backwards;
-///     animation: slide-in-right 4.2s ease-out backwards;
-///   }
-@mixin slide-in-right($time: 1s) {
-    @include prefix(animation, slide-in-right $time ease-out backwards, 'webkit');
-}
-
-@include keyframes('slide-in-right') {
-    from {
-        @include transform(translateX(100px));
-        opacity: 0;
-    }
-
-    75% {
-        @include transform(translateX(0));
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-
-/// Animation slide-in-left
-/// @access public
-/// @param {Time} $time [1s] - Animation duration
-/// @example scss - Usage
-///   .foo {
-///     @include slide-in-left(4.2s);
-///   }
-/// @example css - Result
-///   .foo {
-///     -webkit-animation: slide-in-left 4.2s ease-out backwards;
-///     animation: slide-in-left 4.2s ease-out backwards;
-///   }
-@mixin slide-in-left($time: 1s) {
-    @include prefix(animation, slide-in-left $time ease-out backwards, 'webkit');
-}
-
-@include keyframes('slide-in-left') {
-    from {
-        @include transform(translateX(-100px));
-        opacity: 0;
-    }
-
-    75% {
-        @include transform(translateX(0));
-    }
-
-    to {
-        opacity: 1;
-    }
+  @include prefix(animation, slide-in-#{$slide-axis}-#{$slide-offset} $animation-properties, 'webkit');
 }
